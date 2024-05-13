@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:columnOrderPreserved="false"
+            android:rowCount="3">
+
+            <LinearLayout
+                android:id="@+id/truyen1"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:layout_margin="12dp"
+                android:background="@drawable/button_boder"
+                android:orientation="vertical"
+                android:textColor="@color/black">
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_margin="4px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:id="@+id/tentruyen1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="truyện 1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/truyen2"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:layout_margin="12dp"
+                android:background="@drawable/button_boder"
+                android:orientation="vertical"
+                android:textColor="@color/black">
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_margin="4px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:id="@+id/tentruyen2"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="truyện 2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/truyen3"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:layout_margin="12dp"
+                android:background="@drawable/button_boder"
+                android:orientation="vertical"
+                android:textColor="@color/black">
+
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_margin="4px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:id="@+id/tentruyen3"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="truyện 3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/truyen4"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:layout_margin="12dp"
+                android:background="@drawable/button_boder"
+                android:orientation="vertical"
+                android:textColor="@color/black">
+
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_margin="4px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:id="@+id/tentruyen4"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="truyện 4" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/truyen5"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:layout_margin="12dp"
+                android:background="@drawable/button_boder"
+                android:orientation="vertical"
+                android:textColor="@color/black">
+
+                <ImageView
+                    android:id="@+id/image5"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_margin="4px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:id="@+id/tentruyen5"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="truyện 5" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/truyen6"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:background="@drawable/button_boder"
+                android:textColor="@color/black"
+                android:layout_margin="12dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/image6"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/thegioihoanmy"/>
+                <TextView
+                    android:id="@+id/tentruyen6"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="truyện 6"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+        </GridLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
