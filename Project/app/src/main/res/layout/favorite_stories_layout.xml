@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="1"
+            android:columnOrderPreserved="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8px"
+                android:layout_marginBottom="12px"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8px"
+                    android:layout_marginRight="8px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thế giới hoàn mỹ"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12px"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8px"
+                    android:layout_marginRight="8px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thế giới hoàn mỹ"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12px"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8px"
+                    android:layout_marginRight="8px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thế giới hoàn mỹ"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12px"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8px"
+                    android:layout_marginRight="8px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thế giới hoàn mỹ"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12px"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8px"
+                    android:layout_marginRight="8px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thế giới hoàn mỹ"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12px"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image6"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8px"
+                    android:layout_marginRight="8px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thế giới hoàn mỹ"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12px"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image7"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8px"
+                    android:layout_marginRight="8px"
+                    android:background="@drawable/thegioihoanmy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thế giới hoàn mỹ"/>
+            </LinearLayout>
+
+        </GridLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
