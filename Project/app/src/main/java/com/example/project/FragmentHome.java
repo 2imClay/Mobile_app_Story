@@ -1,12 +1,27 @@
 package com.example.project;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.project.view.FavoriteStoriesFragment;
+import com.example.project.view.HistoryStoriesFragment;
+import com.example.project.view.NewStoriesFragment;
+import com.example.project.view.NoLoginFragment;
+import com.example.project.view.PopularStoriesFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +38,8 @@ public class FragmentHome extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    List<TextView> textViews = new ArrayList<TextView>();
+    boolean isLogin = false;
 
     public FragmentHome() {
         // Required empty public constructor
@@ -43,6 +60,7 @@ public class FragmentHome extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -53,12 +71,96 @@ public class FragmentHome extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        showFragment(new PopularStoriesFragment());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // Ánh xạ TextView từ layout của Fragment
+        TextView popularStories = view.findViewById(R.id.popularStories);
+        TextView newStories = view.findViewById(R.id.newStories);
+        TextView favoriteStories = view.findViewById(R.id.favoriteStories);
+        TextView historyStoriesRead = view.findViewById(R.id.historyStoriesRead);
+
+        textViews.add(popularStories);
+        changBackgroundColor(textViews);
+        popularStories.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+
+                textViews.add(popularStories);
+                showFragment(new PopularStoriesFragment());
+                changBackgroundColor(textViews);
+            }
+        });
+
+        newStories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textViews.add(newStories);
+                showFragment(new NewStoriesFragment());
+                changBackgroundColor(textViews);
+
+            }
+        });
+        favoriteStories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textViews.add(favoriteStories);
+                showFragment(new FavoriteStoriesFragment());
+                changBackgroundColor(textViews);
+
+            }
+        });
+        historyStoriesRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textViews.add(historyStoriesRead);
+
+                if(isLogin){
+                    showFragment(new HistoryStoriesFragment());
+                }else {
+                    showFragment(new NoLoginFragment());
+                }
+
+                changBackgroundColor(textViews);
+            }
+        });
+        return view;
+    }
+    public void changBackgroundColor(List<TextView> textViews){
+        int size = textViews.size();
+        if(textViews.size() ==0){
+            TextView textView = textViews.get(size-1);
+            Drawable purple = new ColorDrawable(Color.parseColor("#F58EFF"));
+            int white = Color.parseColor("#FFFFFF");
+            textView.setBackground(purple);
+            textView.setTextColor(white);
+        }else if (textViews.size() >1) {
+            TextView textView = textViews.get(size-1);
+            TextView textView1 = textViews.get(size-2);
+            Drawable purple = new ColorDrawable(Color.parseColor("#F58EFF"));
+            Drawable whiteBackGround = new ColorDrawable(Color.parseColor("#FFFFFF"));
+            int white = Color.parseColor("#FFFFFF");
+            int black = Color.parseColor("black");
+            textView.setBackground(purple);
+            textView.setTextColor(white);
+            textView1.setBackground(whiteBackGround);
+            textView1.setTextColor(black);
+        }else {
+
+        }
+
+
+    }
+    private void showFragment(Fragment fragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content, fragment);
+        transaction.commit();
     }
 }
