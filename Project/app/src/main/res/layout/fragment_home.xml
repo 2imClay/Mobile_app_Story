@@ -5,13 +5,49 @@
     android:layout_height="match_parent"
     tools:context=".FragmentHome">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Home Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/black"/>
+        android:orientation="horizontal"
+        android:id="@+id/sidebar">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/popularStories"
+            android:text="Phổ biến"
+            android:gravity="center"
+            android:maxHeight="20dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/newStories"
+            android:text="Mới"
+            android:gravity="center"
+            android:maxHeight="20dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/favoriteStories"
+            android:text="Yêu thích"
+            android:gravity="center"
+            android:maxHeight="20dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/historyStoriesRead"
+            android:text="Lịch sử"
+            android:gravity="center"
+            android:maxHeight="20dp"/>
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/sidebar">
+    </FrameLayout>
 
 </RelativeLayout>
