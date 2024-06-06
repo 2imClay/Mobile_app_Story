@@ -38,7 +38,6 @@
 
 
     <com.google.android.material.navigation.NavigationView
-
         android:layout_gravity="start"
         android:id="@+id/navigationView"
         android:layout_width="wrap_content"

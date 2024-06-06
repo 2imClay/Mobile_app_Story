@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!-- Tiêu đề -->
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="102dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="Đăng ký"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Tên đăng nhập -->
+
+        <!-- Mật khẩu -->
+        <EditText
+            android:id="@+id/edit_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_title"
+            android:layout_marginTop="114dp"
+            android:hint="Tên đăng nhập"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_username"
+            android:layout_marginTop="16dp"
+            android:hint="Mật khẩu"
+            android:inputType="textPassword" />
+
+        <!-- Xác nhận mật khẩu -->
+        <EditText
+            android:id="@+id/edit_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_password"
+            android:layout_marginTop="16dp"
+            android:hint="Xác nhận mật khẩu"
+            android:inputType="textPassword" />
+
+        <!-- Email -->
+        <EditText
+            android:id="@+id/edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_confirm_password"
+            android:layout_marginTop="16dp"
+            android:hint="Email"
+            android:inputType="text" />
+
+        <!-- Nút đăng ký -->
+        <Button
+            android:id="@+id/button_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_email"
+            android:layout_marginTop="24dp"
+            android:text="Đăng ký" />
+
+        <!-- Nút đăng nhập -->
+        <Button
+            android:id="@+id/button_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_register"
+            android:layout_marginTop="90dp"
+            android:text="Đăng nhập" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
