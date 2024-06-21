@@ -6,22 +6,18 @@ public class Story {
     private String author;
     private String description;
     private String genre;
-    private int totalChapters;
     private String coverImageUrl;
     private boolean isCompleted;
-    private double averageRating;
     private int viewCount;
 
-    public Story(int id, String title, String author, String description, String genre, int totalChapters, String coverImageUrl, boolean isCompleted, double averageRating, int viewCount) {
+    public Story(int id, String title, String author, String description, String genre, String coverImageUrl, boolean isCompleted, int viewCount) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.description = description;
         this.genre = genre;
-        this.totalChapters = totalChapters;
         this.coverImageUrl = coverImageUrl;
         this.isCompleted = isCompleted;
-        this.averageRating = averageRating;
         this.viewCount = viewCount;
     }
 
@@ -65,13 +61,6 @@ public class Story {
         this.genre = genre;
     }
 
-    public int getTotalChapters() {
-        return totalChapters;
-    }
-
-    public void setTotalChapters(int totalChapters) {
-        this.totalChapters = totalChapters;
-    }
 
     public String getCoverImageUrl() {
         return coverImageUrl;
@@ -87,14 +76,6 @@ public class Story {
 
     public void setCompleted(boolean completed) {
         isCompleted = completed;
-    }
-
-    public double getAverageRating() {
-        return averageRating;
-    }
-
-    public void setAverageRating(double averageRating) {
-        this.averageRating = averageRating;
     }
 
     public int getViewCount() {

@@ -5,16 +5,14 @@ import java.sql.Date;
 public class Chapter {
     private int id;
     private int storyId;
-    private int chapterNumber;
     private String title;
     private String content;
     private Date publishedDate;
     private int viewCount;
 
-    public Chapter(int id, int storyId, int chapterNumber, String title, String content, Date publishedDate, int viewCount) {
+    public Chapter(int id, int storyId, String title, String content, Date publishedDate, int viewCount) {
         this.id = id;
         this.storyId = storyId;
-        this.chapterNumber = chapterNumber;
         this.title = title;
         this.content = content;
         this.publishedDate = publishedDate;
@@ -35,14 +33,6 @@ public class Chapter {
 
     public void setStoryId(int storyId) {
         this.storyId = storyId;
-    }
-
-    public int getChapterNumber() {
-        return chapterNumber;
-    }
-
-    public void setChapterNumber(int chapterNumber) {
-        this.chapterNumber = chapterNumber;
     }
 
     public String getTitle() {

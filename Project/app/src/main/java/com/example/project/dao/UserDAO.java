@@ -71,7 +71,6 @@ public class UserDAO {
             cursor.moveToFirst();
 
         User user = new User(
-                cursor.getInt(0),
                 cursor.getString(1),
                 cursor.getString(2),
                 cursor.getString(3),
@@ -98,7 +97,6 @@ public class UserDAO {
         if (cursor.moveToFirst()) {
             do {
                 User user = new User(
-                        cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
@@ -128,7 +126,7 @@ public class UserDAO {
         values.put(COLUMN_ROLE, user.getRole());
 
         return db.update(TABLE_USER, values, COLUMN_ID + " = ?",
-                new String[]{String.valueOf(user.getId())});
+                new String[]{String.valueOf(user.getUsername())});
     }
 
     // Xóa một user
