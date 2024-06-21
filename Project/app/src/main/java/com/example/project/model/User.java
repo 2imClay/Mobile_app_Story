@@ -10,16 +10,19 @@ public class User {
     private String username;
     private String password;
 
+    private String role;
+
     private List<Story> favouriteStories;
     private List<Story> readStories;
     private List<Comment> comments;
 
-    public User(int id, String name, String email, String username, String password, List<Story> favouriteStories, List<Story> readStories, List<Comment> comments) {
+    public User(int id, String name, String email, String username, String password,String role, List<Story> favouriteStories, List<Story> readStories, List<Comment> comments) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.role = role;
         this.favouriteStories = favouriteStories;
         this.readStories = readStories;
         this.comments = comments;
@@ -63,6 +66,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public List<Story> getFavouriteStories() {
