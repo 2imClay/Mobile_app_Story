@@ -1,20 +1,21 @@
 package com.example.project.model;
 
 public class Genre {
-    private int id;
+    private String idgenre;
     private String name;
 
-    public Genre(int id, String name) {
-        this.id = id;
+    public Genre(String idgenre, String name) {
+        this.idgenre = idgenre;
         this.name = name;
     }
 
-    public int getId() {
-        return id;
+
+    public String getIdgenre() {
+        return idgenre;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdgenre(String idgenre) {
+        this.idgenre = idgenre;
     }
 
     public String getName() {

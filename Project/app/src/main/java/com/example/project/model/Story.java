@@ -1,36 +1,32 @@
 package com.example.project.model;
 
 public class Story {
-    private int id;
+    private String idstory;
     private String title;
     private String author;
     private String description;
-    private String genre;
-    private int totalChapters;
-    private String coverImageUrl;
-    private boolean isCompleted;
-    private double averageRating;
-    private int viewCount;
+    private Genre genre;
+    private String imageurl;
+    private boolean iscompleted;
+    private int viewcount;
 
-    public Story(int id, String title, String author, String description, String genre, int totalChapters, String coverImageUrl, boolean isCompleted, double averageRating, int viewCount) {
-        this.id = id;
+    public Story(String idstory, String title, String author, String description, Genre genre, String imageurl, boolean iscompleted, int viewcount) {
+        this.idstory = idstory;
         this.title = title;
         this.author = author;
         this.description = description;
         this.genre = genre;
-        this.totalChapters = totalChapters;
-        this.coverImageUrl = coverImageUrl;
-        this.isCompleted = isCompleted;
-        this.averageRating = averageRating;
-        this.viewCount = viewCount;
+        this.imageurl = imageurl;
+        this.iscompleted = iscompleted;
+        this.viewcount = viewcount;
     }
 
-    public int getId() {
-        return id;
+    public String getIdstory() {
+        return idstory;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdstory(String idstory) {
+        this.idstory = idstory;
     }
 
     public String getTitle() {
@@ -57,51 +53,36 @@ public class Story {
         this.description = description;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 
-    public int getTotalChapters() {
-        return totalChapters;
+    public String getImageurl() {
+        return imageurl;
     }
 
-    public void setTotalChapters(int totalChapters) {
-        this.totalChapters = totalChapters;
+    public void setImageurl(String imageurl) {
+        this.imageurl = imageurl;
     }
 
-    public String getCoverImageUrl() {
-        return coverImageUrl;
+    public boolean isIscompleted() {
+        return iscompleted;
     }
 
-    public void setCoverImageUrl(String coverImageUrl) {
-        this.coverImageUrl = coverImageUrl;
+    public void setIscompleted(boolean iscompleted) {
+        this.iscompleted = iscompleted;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
+    public int getViewcount() {
+        return viewcount;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
-
-    public double getAverageRating() {
-        return averageRating;
-    }
-
-    public void setAverageRating(double averageRating) {
-        this.averageRating = averageRating;
-    }
-
-    public int getViewCount() {
-        return viewCount;
-    }
-
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
+    public void setViewcount(int viewcount) {
+        this.viewcount = viewcount;
     }
 }
+
