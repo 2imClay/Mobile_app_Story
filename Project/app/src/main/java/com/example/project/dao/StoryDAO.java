@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import com.example.project.model.Genre;
 import com.example.project.model.Story;
@@ -13,8 +14,6 @@ import java.util.List;
 
 public class StoryDAO implements DAO<Story>{
     private DatabaseHelper databaseHelper;
-
-
     private GenreDAO genreDAO;
     public StoryDAO(Context context) {
 
@@ -34,11 +33,12 @@ public class StoryDAO implements DAO<Story>{
                 String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
                 String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
                 String imgUrl = cursor.getString(cursor.getColumnIndexOrThrow("imgURL"));
+                int isCompleted = cursor.getInt(cursor.getColumnIndexOrThrow("isCompleted"));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
                 String genres = cursor.getString(cursor.getColumnIndexOrThrow("genres"));
                 Genre genre = genreDAO.getGenreById(genres);
 
-                stories.add(new Story(idstory,title,author,description,genre,imgUrl,false,0));
+                stories.add(new Story(idstory,title,author,description,genre,imgUrl,isCompleted,0));
             } while (cursor.moveToNext());
         }
 
@@ -46,4 +46,40 @@ public class StoryDAO implements DAO<Story>{
         db.close();
         return stories;
     }
+
+    @Override
+    public boolean insert(Story story) {
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        long newRowId = -1;
+        try {
+            String sql = "INSERT INTO stories(id,tittle,author,imgURL,description,genres,isCompleted,viewCount) VALUES(?,?,?,?,?,?,?,?)";
+            SQLiteStatement stmt = db.compileStatement(sql);
+            stmt.bindString(1, story.getIdstory());
+            stmt.bindString(2,story.getTitle());
+            stmt.bindString(3,story.getAuthor());
+            stmt.bindString(4, story.getImageurl());
+            stmt.bindString(5,story.getDescription());
+            stmt.bindString(6, story.getGenre().getIdgenre());
+            stmt.bindLong(7,story.isIscompleted());
+            stmt.bindLong(8, story.getViewcount());
+            newRowId = stmt.executeInsert();
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.close();
+        }
+        return newRowId > 0;
+    }
+
+    @Override
+    public boolean update(String id) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) {
+        return false;
+    }
+
+
 }

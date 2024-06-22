@@ -12,22 +12,39 @@ public class User {
 
     private String role;
 
+    private String srcImg;
     private List<Story> favouriteStories;
     private List<Story> readStories;
     private List<Comment> comments;
 
-    public User( String name, String email, String username, String password,String role, List<Story> favouriteStories, List<Story> readStories, List<Comment> comments) {
-
+    public User(String name, String email, String username, String password, String role, String srcImg) {
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.srcImg = srcImg;
+    }
+
+    public User(String name, String email, String username, String password, String role, String srcImg, List<Story> favouriteStories, List<Story> readStories, List<Comment> comments) {
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.srcImg = srcImg;
         this.favouriteStories = favouriteStories;
         this.readStories = readStories;
         this.comments = comments;
     }
 
+    public String getSrcImg() {
+        return srcImg;
+    }
+
+    public void setSrcImg(String srcImg) {
+        this.srcImg = srcImg;
+    }
 
     public String getName() {
         return name;
