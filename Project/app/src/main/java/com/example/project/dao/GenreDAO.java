@@ -33,6 +33,22 @@ public class GenreDAO implements DAO<Genre>{
         db.close();
         return genres;
     }
+
+    @Override
+    public boolean insert(Genre genre) {
+        return false;
+    }
+
+    @Override
+    public boolean update(String id) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) {
+        return false;
+    }
+
     public Genre getGenreById(String idGenre){
         for (Genre genre: selectAll()
              ) {
@@ -41,5 +57,13 @@ public class GenreDAO implements DAO<Genre>{
             }else return null;
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+
+//        List<Genre> list = dao.selectAll();
+//        for (Genre genre : list){
+//            System.out.println(genre.toString());
+//        }
     }
 }

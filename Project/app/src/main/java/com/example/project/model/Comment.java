@@ -3,27 +3,25 @@ package com.example.project.model;
 import java.sql.Date;
 
 public class Comment {
-    private int id;
+    private String id;
     private int userId;
     private int storyId;
-    private int chapterId;
     private String content;
     private Date commentedDate;
 
-    public Comment(int id, int userId, int storyId, int chapterId, String content, Date commentedDate) {
+    public Comment(String id, int userId, int storyId, String content, Date commentedDate) {
         this.id = id;
         this.userId = userId;
         this.storyId = storyId;
-        this.chapterId = chapterId;
         this.content = content;
         this.commentedDate = commentedDate;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -41,14 +39,6 @@ public class Comment {
 
     public void setStoryId(int storyId) {
         this.storyId = storyId;
-    }
-
-    public int getChapterId() {
-        return chapterId;
-    }
-
-    public void setChapterId(int chapterId) {
-        this.chapterId = chapterId;
     }
 
     public String getContent() {

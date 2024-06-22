@@ -3,46 +3,36 @@ package com.example.project.model;
 import java.sql.Date;
 
 public class Chapter {
-    private int id;
-    private int storyId;
-    private int chapterNumber;
+    private String id;
+    private String storyId;
     private String title;
     private String content;
-    private Date publishedDate;
+    private String publishedDate;
     private int viewCount;
 
-    public Chapter(int id, int storyId, int chapterNumber, String title, String content, Date publishedDate, int viewCount) {
+    public Chapter(String id, String storyId, String title, String content, String publishedDate, int viewCount) {
         this.id = id;
         this.storyId = storyId;
-        this.chapterNumber = chapterNumber;
         this.title = title;
         this.content = content;
         this.publishedDate = publishedDate;
         this.viewCount = viewCount;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getStoryId() {
+    public String getStoryId() {
         return storyId;
     }
 
-    public void setStoryId(int storyId) {
+    public void setStoryId(String storyId) {
         this.storyId = storyId;
-    }
-
-    public int getChapterNumber() {
-        return chapterNumber;
-    }
-
-    public void setChapterNumber(int chapterNumber) {
-        this.chapterNumber = chapterNumber;
     }
 
     public String getTitle() {
@@ -61,11 +51,11 @@ public class Chapter {
         this.content = content;
     }
 
-    public Date getPublishedDate() {
+    public String getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(Date publishedDate) {
+    public void setPublishedDate(String publishedDate) {
         this.publishedDate = publishedDate;
     }
 

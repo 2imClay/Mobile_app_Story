@@ -7,10 +7,10 @@ public class Story {
     private String description;
     private Genre genre;
     private String imageurl;
-    private boolean iscompleted;
+    private int iscompleted;
     private int viewcount;
 
-    public Story(String idstory, String title, String author, String description, Genre genre, String imageurl, boolean iscompleted, int viewcount) {
+    public Story(String idstory, String title, String author, String description, Genre genre, String imageurl, int iscompleted, int viewcount) {
         this.idstory = idstory;
         this.title = title;
         this.author = author;
@@ -28,7 +28,6 @@ public class Story {
     public void setIdstory(String idstory) {
         this.idstory = idstory;
     }
-
     public String getTitle() {
         return title;
     }
@@ -69,11 +68,11 @@ public class Story {
         this.imageurl = imageurl;
     }
 
-    public boolean isIscompleted() {
+    public int isIscompleted() {
         return iscompleted;
     }
 
-    public void setIscompleted(boolean iscompleted) {
+    public void setIscompleted(int iscompleted) {
         this.iscompleted = iscompleted;
     }
 
