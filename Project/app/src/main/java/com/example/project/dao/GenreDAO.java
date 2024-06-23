@@ -3,6 +3,7 @@ package com.example.project.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import com.example.project.model.Genre;
 
@@ -36,7 +37,20 @@ public class GenreDAO implements DAO<Genre>{
 
     @Override
     public boolean insert(Genre genre) {
-        return false;
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        long newRowId= -1;
+        try {
+            String sql = "INSERT INTO genres(idGenre,name) VALUES(?,?)";
+            SQLiteStatement stmt = db.compileStatement(sql);
+            stmt.bindString(1,genre.getIdgenre());
+            stmt.bindString(2,genre.getName());
+            newRowId = stmt.executeInsert();
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.close();
+        }
+        return newRowId > 0;
     }
 
     @Override

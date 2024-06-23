@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
+import com.example.project.model.Chapter;
 import com.example.project.model.User;
 
 import java.util.ArrayList;
@@ -19,7 +20,25 @@ public class UserDAO implements DAO<User>{
     }
     @Override
     public List<User> selectAll() {
-        return null;
+        List<User> list = new ArrayList<>();
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM users", null);
+
+        if(cursor.moveToFirst()){
+            do {
+                String username = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+                String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+                String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String role = cursor.getString(cursor.getColumnIndexOrThrow("role"));
+                String srcImg =cursor.getString(cursor.getColumnIndexOrThrow("srcImg"));
+                User user = new User(username,password,email,name,role,srcImg);
+                list.add(user);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return list;
     }
 
     @Override
