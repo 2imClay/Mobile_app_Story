@@ -4,7 +4,6 @@ import java.util.List;
 
 public class User {
 
-    private String name;
     private String email;
 
     private String username;
@@ -17,17 +16,14 @@ public class User {
     private List<Story> readStories;
     private List<Comment> comments;
 
-    public User(String name, String email, String username, String password, String role, String srcImg) {
-        this.name = name;
-        this.email = email;
+    public User(String username,   String password,String email) {
+
         this.username = username;
+        this.email = email;
         this.password = password;
-        this.role = role;
-        this.srcImg = srcImg;
     }
 
-    public User(String name, String email, String username, String password, String role, String srcImg, List<Story> favouriteStories, List<Story> readStories, List<Comment> comments) {
-        this.name = name;
+    public User(String email, String username, String password, String role, String srcImg, List<Story> favouriteStories, List<Story> readStories, List<Comment> comments) {
         this.email = email;
         this.username = username;
         this.password = password;
@@ -36,22 +32,6 @@ public class User {
         this.favouriteStories = favouriteStories;
         this.readStories = readStories;
         this.comments = comments;
-    }
-
-    public String getSrcImg() {
-        return srcImg;
-    }
-
-    public void setSrcImg(String srcImg) {
-        this.srcImg = srcImg;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmail() {
@@ -86,6 +66,14 @@ public class User {
         this.role = role;
     }
 
+    public String getSrcImg() {
+        return srcImg;
+    }
+
+    public void setSrcImg(String srcImg) {
+        this.srcImg = srcImg;
+    }
+
     public List<Story> getFavouriteStories() {
         return favouriteStories;
     }
@@ -108,5 +96,13 @@ public class User {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

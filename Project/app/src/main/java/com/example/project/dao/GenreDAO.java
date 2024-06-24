@@ -1,5 +1,6 @@
 package com.example.project.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,21 +37,28 @@ public class GenreDAO implements DAO<Genre>{
     }
 
     @Override
-    public boolean insert(Genre genre) {
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        long newRowId= -1;
-        try {
-            String sql = "INSERT INTO genres(idGenre,name) VALUES(?,?)";
-            SQLiteStatement stmt = db.compileStatement(sql);
-            stmt.bindString(1,genre.getIdgenre());
-            stmt.bindString(2,genre.getName());
-            newRowId = stmt.executeInsert();
-        }catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
-        return newRowId > 0;
+    public long insert(Genre genre) {
+//        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+//        long newRowId= -1;
+//        try {
+//            String sql = "INSERT INTO genres(idGenre,name) VALUES(?,?)";
+//            SQLiteStatement stmt = db.compileStatement(sql);
+//            stmt.bindString(1,genre.getIdgenre());
+//            stmt.bindString(2,genre.getName());
+//            newRowId = stmt.executeInsert();
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            db.close();
+//        }
+//        return newRowId > 0;
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        ContentValues values = new ContentValues();
+//        values.put("username", user.getUsername());
+//        values.put("password", user.getPassword());
+//        values.put("email", user.getEmail());
+
+        return db.insert("genres", null, values);
     }
 
     @Override

@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.project.view.LoginFragment;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,7 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "db3.db";
+    private static final String DATABASE_NAME = "db4.db";
     private static final int DATABASE_VERSION = 1;
     private static final String DB_PATH_SUFFIX = "/databases/";
     private Context context;
@@ -25,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.context = context;
         processCopy();
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {

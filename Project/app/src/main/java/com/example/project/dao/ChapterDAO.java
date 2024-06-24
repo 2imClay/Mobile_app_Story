@@ -1,5 +1,6 @@
 package com.example.project.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -61,25 +62,17 @@ public class ChapterDAO implements DAO<Chapter>{
         db.close();
     }
     @Override
-    public boolean insert(Chapter chapter) {
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        long newRowId = -1;
-        try {
-            String sql = "INSERT INTO chapters (idChapter, idStory, title, content, publishDate, viewCount) VALUES (?, ?, ?, ?, ?, ?)";
-            SQLiteStatement stmt = db.compileStatement(sql);
-            stmt.bindString(1, chapter.getId());
-            stmt.bindString(2, chapter.getStoryId());
-            stmt.bindString(3, chapter.getTitle());
-            stmt.bindString(4, chapter.getContent());
-            stmt.bindString(5, chapter.getPublishedDate());
-            stmt.bindLong(6, chapter.getViewCount());
-            newRowId = stmt.executeInsert();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
-        return newRowId > 0;
+    public long insert(Chapter chapter) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        ContentValues values = new ContentValues();
+            values.put("idChapter", chapter.getId());
+            values.put("idStory", chapter.getStoryId());
+            values.put("title", chapter.getTitle());
+            values.put("content", chapter.getContent());
+            values.put("publishDate", chapter.getPublishedDate());
+            values.put("viewCount", chapter.getViewCount());
+
+        return db.insert("chapters", null, values);
     }
 
     @Override

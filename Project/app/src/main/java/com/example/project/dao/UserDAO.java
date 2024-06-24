@@ -32,7 +32,7 @@ public class UserDAO implements DAO<User>{
                 String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 String role = cursor.getString(cursor.getColumnIndexOrThrow("role"));
                 String srcImg =cursor.getString(cursor.getColumnIndexOrThrow("srcImg"));
-                User user = new User(username,password,email,name,role,srcImg);
+                User user = new User(username,password,email);
                 list.add(user);
             }while (cursor.moveToNext());
         }
@@ -42,25 +42,14 @@ public class UserDAO implements DAO<User>{
     }
 
     @Override
-    public boolean insert(User user) {
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        long newRowId = -1;
-        try{
-            String sql = "INSERT INTO users(username, password, email,name,role, srcImg) VALUES (??????)";
-            SQLiteStatement stmt = db.compileStatement(sql);
-            stmt.bindString(1, user.getUsername());
-            stmt.bindString(2, user.getPassword());
-            stmt.bindString(3,user.getEmail());
-            stmt.bindString(4,user.getName());
-            stmt.bindString(5,user.getRole());
-            stmt.bindString(6, user.getSrcImg());
-            newRowId = stmt.executeInsert();
-        }catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
-        return newRowId > 0;
+    public long insert(User user) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username", user.getUsername());
+        values.put("password", user.getPassword());
+        values.put("email", user.getEmail());
+
+        return db.insert("users", null, values);
     }
 
     @Override
@@ -72,4 +61,32 @@ public class UserDAO implements DAO<User>{
     public boolean delete(String id) {
         return false;
     }
+    public boolean authercationUser(String username, String password){
+        for (User user:
+             selectAll()) {
+            if(user.getUsername().equalsIgnoreCase(username) && user.getPassword().equalsIgnoreCase(password)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean checkUser(String username) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        String query = "SELECT * FROM users WHERE username = ? " ;
+        Cursor cursor = db.rawQuery(query, new String[]{username});
+
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
+    }
+    public User getUserByUsername(String username){
+        for (User user:
+             selectAll()) {
+            if(user.getUsername().equalsIgnoreCase(username)) return user;
+        }
+        return  null;
+    }
+
+
+
 }
