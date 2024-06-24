@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.project.model.User;
+import com.example.project.model.UserPreferences;
 import com.example.project.view.FavoriteStoriesFragment;
 import com.example.project.view.HistoryStoriesFragment;
 import com.example.project.view.NewStoriesFragment;
@@ -40,6 +42,7 @@ public class FragmentHome extends Fragment {
     private String mParam2;
     List<TextView> textViews = new ArrayList<TextView>();
     boolean isLogin = false;
+    private UserPreferences userPreferences;
 
     public FragmentHome() {
         // Required empty public constructor
@@ -77,15 +80,20 @@ public class FragmentHome extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Ánh xạ TextView từ layout của Fragment
         TextView popularStories = view.findViewById(R.id.popularStories);
         TextView newStories = view.findViewById(R.id.newStories);
         TextView favoriteStories = view.findViewById(R.id.favoriteStories);
         TextView historyStoriesRead = view.findViewById(R.id.historyStoriesRead);
 
         textViews.add(popularStories);
+        userPreferences = new UserPreferences(getContext());
+        User user = userPreferences.getUser();
+        if (user != null){
+            isLogin = true;
+        }
         changBackgroundColor(textViews);
         popularStories.setOnClickListener(new View.OnClickListener() {
 

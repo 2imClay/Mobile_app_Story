@@ -5,15 +5,22 @@
     android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.StoryInforFragment"
+    tools:context=".view.Item_content_Activity"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#008b8b">
+        android:background="#008b8b"
+        >
 
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tiểu ngạo giang hồ" />
     </LinearLayout>
 
     <LinearLayout
@@ -22,6 +29,7 @@
         >
 
         <ImageView
+            android:id="@+id/ic_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_back"
@@ -50,9 +58,10 @@
 
 
                 <ImageView
+                    android:id="@+id/imgStory"
                     android:layout_width="200dp"
                     android:layout_height="300dp"
-                    android:src="@drawable/app">
+                   >
 
                 </ImageView>
 
@@ -64,7 +73,7 @@
                     android:textSize="25dp" />
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/textViewAuthor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

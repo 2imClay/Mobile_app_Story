@@ -1,6 +1,8 @@
 package com.example.project.model;
 
-public class Story {
+import java.io.Serializable;
+
+public class Story implements Serializable {
     private String idstory;
     private String title;
     private String author;
@@ -10,12 +12,11 @@ public class Story {
     private int iscompleted;
     private int viewcount;
 
-    public Story(String idstory, String title, String author, String description, Genre genre, String imageurl, int iscompleted, int viewcount) {
+    public Story(String idstory, String title, String author, String description,  String imageurl, int iscompleted, int viewcount) {
         this.idstory = idstory;
         this.title = title;
         this.author = author;
         this.description = description;
-        this.genre = genre;
         this.imageurl = imageurl;
         this.iscompleted = iscompleted;
         this.viewcount = viewcount;
