@@ -84,5 +84,12 @@ public class Story implements Serializable {
     public void setViewcount(int viewcount) {
         this.viewcount = viewcount;
     }
+
+    @Override
+    public String toString() {
+        return "Story{" +
+                "idstory='" + idstory + '\'' +
+                '}';
+    }
 }
 
