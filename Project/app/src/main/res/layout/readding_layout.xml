@@ -12,24 +12,25 @@
         android:id="@+id/backFuncRelLayout"
         android:layout_marginTop="50dp"
         android:paddingHorizontal="30dp">
+
         <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="70dp"
+            android:id="@+id/imgbtn_back"
+            android:layout_width="50dp"
             android:layout_height="70dp"
+            android:background="@drawable/button_round"
+            android:backgroundTint="@color/button_back"
             android:padding="10dp"
             android:scaleType="fitCenter"
-            android:backgroundTint="@color/button_back"
-            android:background="@drawable/button_round"
-            app:srcCompat="@drawable/img_arrow_navigation"/>
+            app:srcCompat="@drawable/img_arrow_navigation" />
 
         <TextView
-            android:id="@+id/textView_back"
+            android:id="@+id/textView_nameStory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Truyện"
             android:textStyle="bold"
             android:textSize="30sp"
-            android:layout_toRightOf="@id/btn_back"
+            android:layout_toRightOf="@id/imgbtn_back"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"/>
     </RelativeLayout>
@@ -40,6 +41,7 @@
         android:layout_below="@id/backFuncRelLayout">
 
         <TextView
+            android:id="@+id/textView_nameChapter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -47,8 +49,8 @@
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
             android:text="Chap 1: Người anh hùng moi da den"
-            android:textSize="30sp"
-            android:textAlignment="center"></TextView>
+            android:textAlignment="center"
+            android:textSize="30sp"></TextView>
     </RelativeLayout>
     <!--    <RelativeLayout-->
     <!--        android:layout_width="match_parent"-->
@@ -117,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
+            <TextView
                 android:id="@+id/editText_ReadingMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -126,73 +128,75 @@
                 android:inputType="textMultiLine"
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="20dp"
-                android:text="@string/lorem_ipsum" />
+                android:text=""
+               />
         </ScrollView>
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/navFunctRelLayoutBot"
-        android:paddingBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
         android:background="#8692f7"
-        android:layout_alignParentBottom="true">
-        <ImageButton
-            android:layout_height="70dp"
-            android:layout_width="70dp"
-            android:scaleType="fitCenter"
-            android:background="@drawable/button_round"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="50dp"
-            android:padding="10dp"
-            android:backgroundTint="@color/button_home_pressed"
-            app:srcCompat="@drawable/img_home_button"
-            />
+        android:paddingBottom="20dp"
+    >
+        <!--        <ImageButton-->
+        <!--            android:layout_height="70dp"-->
+        <!--            android:layout_width="70dp"-->
+        <!--            android:scaleType="fitCenter"-->
+        <!--            android:background="@drawable/button_round"-->
+        <!--            android:layout_centerVertical="true"-->
+        <!--            android:layout_marginLeft="50dp"-->
+        <!--            android:padding="10dp"-->
+        <!--            android:backgroundTint="@color/button_home_pressed"-->
+        <!--            app:srcCompat="@drawable/img_home_button"-->
+        <!--            />-->
         <RelativeLayout
+            android:id="@+id/navFunctRelLayoutCenterBot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/navFunctRelLayoutCenterBot"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp">
+
             <ImageButton
                 android:id="@+id/btn_previousChapterBot"
-                android:layout_height="70dp"
                 android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/button_round"
                 android:backgroundTint="@color/button_navigation_reading"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/img_arrow_left"/>
+                app:srcCompat="@drawable/img_arrow_left" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/selectorChapterBot"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="200dp"
                 android:layout_height="70dp"
-                android:id="@+id/selectorChapterBot"
-                android:hint="@string/select"
-                android:layout_toRightOf="@id/btn_previousChapterBot"
                 android:layout_marginHorizontal="15dp"
-
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                android:layout_toRightOf="@id/btn_previousChapterBot">
 
                 <AutoCompleteTextView
                     android:id="@+id/autoCompleteTextViewBot"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="43dp"
+                    android:background="@drawable/select_chapter_round"
                     android:inputType="none"
-                    android:paddingVertical="-50dp"
-                    android:background="@drawable/select_chapter_round"/>
+                    android:paddingVertical="-50dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
                 android:id="@+id/btn_nextChaterBot"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:layout_toRightOf="@id/selectorChapterBot"
                 android:background="@drawable/button_round"
                 android:backgroundTint="@color/button_navigation_reading"
                 android:padding="10dp"
                 android:rotation="180"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/img_arrow_left"
-                android:layout_toRightOf="@id/selectorChapterBot"/>
+                app:srcCompat="@drawable/img_arrow_left" />
 
 
         </RelativeLayout>

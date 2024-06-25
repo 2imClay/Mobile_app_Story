@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,11 +24,15 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.project.MainActivity;
 import com.example.project.R;
+import com.example.project.dao.ChapterDAO;
+import com.example.project.dao.StoryDAO;
+import com.example.project.model.Chapter;
 import com.example.project.model.Story;
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Item_content_Activity extends AppCompatActivity {
     EditText etxt_cmt;
@@ -36,11 +41,23 @@ public class Item_content_Activity extends AppCompatActivity {
     ArrayList<String> arrList_cmt=null;
     ArrayAdapter<String> adapter_cmt=null;
     private ImageView ic_back;
-    private TextView textViewAuthor;
+    private TextView textViewAuthor,textViewNameStory;
+    private Button btn_read;
+    private boolean isFilled = false;
+    private ChapterDAO daoChapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
         Story story = (Story) intent.getSerializableExtra("Story");
+
+        daoChapter =new ChapterDAO(this);
+        List<Chapter> chapters = daoChapter.selectAllByIdStory(story.getIdstory());
+      List<String> listChapterTitle = daoChapter.listTitleChapter(story.getIdstory());
+        for (String title: listChapterTitle
+             ) {
+            System.out.println(title);
+        }
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.item_content_layout);
@@ -63,6 +80,9 @@ public class Item_content_Activity extends AppCompatActivity {
         imageView.setLayoutParams(imageViewParams);
 
         textViewAuthor  = findViewById(R.id.textViewAuthor);
+        textViewNameStory = findViewById(R.id.textViewNameStory);
+
+        textViewNameStory.setText(story.getTitle());
         textViewAuthor.setText(story.getAuthor());
         int resId = getResources().getIdentifier(story.getImageurl(), "drawable", this.getPackageName());
 
@@ -78,16 +98,29 @@ public class Item_content_Activity extends AppCompatActivity {
         txt_noiDungChinh.setText(text);
 
 
-        //1. Khởi tạo dữ liệu cho mảng arr (còn gọi là data source)
-        final String[] arr ={"Chapter 1","Chapter 2","Chapter 3","Chapter 4","Chapter 5","Chapter 6","Chapter 7","Chapter 8"};
-        //2. Lấy đối tượng Listview dựa vào id
+
         ListView lv=(ListView) findViewById(R.id.list_chapter);
-        //3. Gán Data source vào ArrayAdapter
         ArrayAdapter<String> adapter=new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1, arr);
-        //4. Đưa Data source vào ListView
+                (this, android.R.layout.simple_list_item_1, listChapterTitle);
         lv.setAdapter(adapter);
 
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String chapterTitle = listChapterTitle.get(position);
+                Intent intent = new Intent(Item_content_Activity.this, Reading_Activity.class);
+                for (Chapter chapter: chapters
+                     ) {
+                    if(chapter.getTitle().equalsIgnoreCase(chapterTitle)){
+                        intent.putExtra("Chapter", chapter);
+
+                    }
+                }
+                intent.putExtra("Story", story);
+
+                startActivity(intent);
+            }
+        });
 
         etxt_cmt = (EditText) findViewById(R.id.etxt_cmt);
         btn_cmt = (Button) findViewById(R.id.btn_cmt);
@@ -110,11 +143,35 @@ public class Item_content_Activity extends AppCompatActivity {
             }
         });
 
+        ImageView heartImageView = findViewById(R.id.heart);
+        heartImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isFilled = !isFilled;
+                if (isFilled) {
+                    heartImageView.setImageResource(R.drawable.heart_filled);
+                    Toast.makeText(Item_content_Activity.this, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    heartImageView.setImageResource(R.drawable.heart_outline);
+                }
+            }
+        });
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Item_content_Activity.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+        btn_read = findViewById(R.id.btn_read);
+        btn_read.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent readIntent = new Intent(Item_content_Activity.this, Reading_Activity.class);
+                readIntent.putExtra("Story", story);
+                readIntent.putExtra("Chapter", chapters.get(0));
+                startActivity(readIntent);
             }
         });
 

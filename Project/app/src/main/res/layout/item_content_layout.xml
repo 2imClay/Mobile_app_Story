@@ -66,7 +66,7 @@
                 </ImageView>
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/textViewNameStory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tên truyện"
@@ -81,6 +81,7 @@
                     android:textSize="15dp" />
 
                 <Button
+                    android:id="@+id/btn_read"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -89,14 +90,12 @@
 
                 </Button>
 
-                <Button
+                <ImageView
+                    android:id="@+id/heart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Thêm vào yêu thích"
-                    android:textSize="15dp">
-
-                </Button>
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/heart_outline" />
 
 
             </LinearLayout>

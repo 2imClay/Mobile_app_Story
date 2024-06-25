@@ -1,79 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:text="Đăng ký"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/textUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_marginBottom="20dp"
+        android:hint="Tên đăng nhập"
+         />
+
+    <EditText
+        android:id="@+id/textPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_marginBottom="20dp"
+        android:hint="Mặt khẩu"/>
+
+    <EditText
+        android:id="@+id/textPassAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Nhập lại mặt khẩu"
+        android:layout_marginBottom="20dp"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/textEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="20dp"
+        android:hint="Email"/>
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đăng ký" />
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <!-- Tiêu đề -->
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        >
+
         <TextView
-            android:id="@+id/text_title"
-            android:layout_width="102dp"
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:text="Đăng ký"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="Bạn đã có tài khoản? "
 
-        <!-- Tên đăng nhập -->
+            android:textSize="16sp" />
 
-        <!-- Mật khẩu -->
-        <EditText
-            android:id="@+id/edit_username"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textLogin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text_title"
-            android:layout_marginTop="114dp"
-            android:hint="Tên đăng nhập"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/edit_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edit_username"
-            android:layout_marginTop="16dp"
-            android:hint="Mật khẩu"
-            android:inputType="textPassword" />
-
-        <!-- Xác nhận mật khẩu -->
-        <EditText
-            android:id="@+id/edit_confirm_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edit_password"
-            android:layout_marginTop="16dp"
-            android:hint="Xác nhận mật khẩu"
-            android:inputType="textPassword" />
-
-        <!-- Email -->
-        <EditText
-            android:id="@+id/edit_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edit_confirm_password"
-            android:layout_marginTop="16dp"
-            android:hint="Email"
-            android:inputType="text" />
-
-        <!-- Nút đăng ký -->
-        <Button
-            android:id="@+id/button_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edit_email"
-            android:layout_marginTop="24dp"
-            android:text="Đăng ký" />
-
-        <!-- Nút đăng nhập -->
-        <Button
-            android:id="@+id/button_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_register"
-            android:layout_marginTop="90dp"
-            android:text="Đăng nhập" />
+            android:layout_weight="1"
+            android:text="Đăng nhập"
+            android:textColor="#03A9F4"
+            android:textSize="20sp" />
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

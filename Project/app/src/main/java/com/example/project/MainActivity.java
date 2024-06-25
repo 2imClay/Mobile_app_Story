@@ -2,12 +2,10 @@ package com.example.project;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,16 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
-import com.example.project.view.LoginFragment;
 import com.example.project.view.NoLoginFragment;
+import com.example.project.view.Persion_Layout;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -88,13 +83,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportActionBar().setTitle("Tài khoản");
 
             }else {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Persion_Layout()).commit();
                 getSupportActionBar().setTitle("Tài khoản");
 
 
             }
 
-        }else if(id == R.id.logout){
+        } else if(id == R.id.logout){
 
             if(user == null){
                 Toast.makeText(this, "Bạn cần đăng nhập", Toast.LENGTH_SHORT).show();
