@@ -1,43 +1,42 @@
 package com.example.project.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Comment {
-    private String id;
-    private int userId;
-    private int storyId;
+public class Comment implements Serializable {
+    private String userId;
+    private String storyId;
     private String content;
     private Date commentedDate;
 
-    public Comment(String id, int userId, int storyId, String content, Date commentedDate) {
-        this.id = id;
+    public Comment( String userId, String storyId, String content) {
+        this.userId = userId;
+        this.storyId = storyId;
+        this.content = content;
+    }
+
+    public Comment(String userId, String storyId, String content, Date commentedDate) {
         this.userId = userId;
         this.storyId = storyId;
         this.content = content;
         this.commentedDate = commentedDate;
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public int getStoryId() {
+    public String getStoryId() {
         return storyId;
     }
 
-    public void setStoryId(int storyId) {
+    public void setStoryId(String storyId) {
         this.storyId = storyId;
     }
 
