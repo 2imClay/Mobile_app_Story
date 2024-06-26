@@ -16,7 +16,10 @@
             android:columnCount="2"
             android:columnOrderPreserved="false"
             android:rowCount="3"
-            android:padding="16dp" />
+            android:padding="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            />
 
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

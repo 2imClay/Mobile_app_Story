@@ -44,7 +44,8 @@ public class PopularStoriesFragment extends Fragment {
         List<Story> stories = daoStory.selectAll();
 
         for (Story story : stories) {
-            // Tạo LinearLayout cho từng sách
+            System.out.println(story.toString());
+
             LinearLayout storyLayout = new LinearLayout(getContext());
 
             GridLayout.LayoutParams gridLayoutParams = new GridLayout.LayoutParams();
@@ -72,9 +73,9 @@ public class PopularStoriesFragment extends Fragment {
             LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     0,
-                    1 // Đặt trọng số để chiếm hết không gian còn lại
+                    1
             );
-            imageViewParams.setMargins(0, 5, 0, 0); // Đặt margin-top là 20 pixels
+            imageViewParams.setMargins(0, 5, 0, 0);
             imageView.setLayoutParams(imageViewParams);
 
             // Lấy ID của tài nguyên hình ảnh từ tên trong cơ sở dữ liệu

@@ -1,14 +1,22 @@
 package com.example.project.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Chapter {
+public class Chapter  implements Serializable {
     private String id;
     private String storyId;
     private String title;
     private String content;
     private String publishedDate;
     private int viewCount;
+
+    public Chapter(String id, String storyId, String title, String content) {
+        this.id = id;
+        this.storyId = storyId;
+        this.title = title;
+        this.content = content;
+    }
 
     public Chapter(String id, String storyId, String title, String content, String publishedDate, int viewCount) {
         this.id = id;

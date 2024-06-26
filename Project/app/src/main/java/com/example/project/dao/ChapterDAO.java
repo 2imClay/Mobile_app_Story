@@ -31,9 +31,9 @@ public class ChapterDAO implements DAO<Chapter>{
                 String idStory = cursor.getString(cursor.getColumnIndexOrThrow("idStory"));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
                 String content = cursor.getString(cursor.getColumnIndexOrThrow("content"));
-                String publishDate = cursor.getString(cursor.getColumnIndexOrThrow("publishDate"));
-                int viewCount =Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("viewCount")));
-                Chapter chapter = new Chapter(idChapter,idStory,title,content,publishDate,viewCount);
+//                String publishDate = cursor.getString(cursor.getColumnIndexOrThrow("publishDate"));
+//                int viewCount =Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("viewCount")));
+                Chapter chapter = new Chapter(idChapter,idStory,title,content);
                 chapterList.add(chapter);
             }while (cursor.moveToNext());
         }
@@ -42,7 +42,21 @@ public class ChapterDAO implements DAO<Chapter>{
         return chapterList;
     }
 
-    public void selectAllByIdStory(String StoryId){
+    public List<String> listTitleChapter(String storyID){
+        List<String> list = new ArrayList<>();
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT title  FROM chapters WHERE idStory = ?", new String[]{storyID});
+        if (cursor.moveToFirst()) {
+            do{
+                String idChapter = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                list.add(idChapter);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+            return list;
+    }
+    public List<Chapter> selectAllByIdStory(String StoryId){
         List<Chapter> chapterList = new ArrayList<>();
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM chapters WHERE idStory = ?", new String[]{StoryId});
@@ -52,14 +66,14 @@ public class ChapterDAO implements DAO<Chapter>{
                 String idStory = cursor.getString(cursor.getColumnIndexOrThrow("idStory"));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
                 String content = cursor.getString(cursor.getColumnIndexOrThrow("content"));
-                String publishDate = cursor.getString(cursor.getColumnIndexOrThrow("publishDate"));
-                int viewCount = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("viewCount")));
-                Chapter chapter = new Chapter(idChapter, idStory, title, content, publishDate, viewCount);
+
+                Chapter chapter = new Chapter(idChapter, idStory, title, content);
                 chapterList.add(chapter);
             } while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
+        return chapterList;
     }
     @Override
     public long insert(Chapter chapter) {
