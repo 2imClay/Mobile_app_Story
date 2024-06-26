@@ -20,7 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
 import com.example.project.view.NoLoginFragment;
-import com.example.project.view.Persion_Layout;
+import com.example.project.view.PersonLayout;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportActionBar().setTitle("Tài khoản");
 
             }else {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Persion_Layout()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PersonLayout()).commit();
                 getSupportActionBar().setTitle("Tài khoản");
 
 
