@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
@@ -94,7 +93,7 @@ public class FragmentHome extends Fragment {
         if (user != null){
             isLogin = true;
         }
-        changBackgroundColor(textViews);
+        changeBackgroundColor(textViews);
         popularStories.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -103,7 +102,7 @@ public class FragmentHome extends Fragment {
 
                 textViews.add(popularStories);
                 showFragment(new PopularStoriesFragment());
-                changBackgroundColor(textViews);
+                changeBackgroundColor(textViews);
             }
         });
 
@@ -112,7 +111,7 @@ public class FragmentHome extends Fragment {
             public void onClick(View v) {
                 textViews.add(newStories);
                 showFragment(new NewStoriesFragment());
-                changBackgroundColor(textViews);
+                changeBackgroundColor(textViews);
 
             }
         });
@@ -121,7 +120,7 @@ public class FragmentHome extends Fragment {
             public void onClick(View v) {
                 textViews.add(favoriteStories);
                 showFragment(new FavoriteStoriesFragment());
-                changBackgroundColor(textViews);
+                changeBackgroundColor(textViews);
 
             }
         });
@@ -136,12 +135,12 @@ public class FragmentHome extends Fragment {
                     showFragment(new NoLoginFragment());
                 }
 
-                changBackgroundColor(textViews);
+                changeBackgroundColor(textViews);
             }
         });
         return view;
     }
-    public void changBackgroundColor(List<TextView> textViews){
+    public void changeBackgroundColor(List<TextView> textViews){
         int size = textViews.size();
         if(textViews.size() ==0){
             TextView textView = textViews.get(size-1);

@@ -35,14 +35,57 @@ public class StoryDAO implements DAO<Story>{
                 String imgUrl = cursor.getString(cursor.getColumnIndexOrThrow("imgURL"));
                 int isCompleted = cursor.getInt(cursor.getColumnIndexOrThrow("isCompleted"));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+                int viewCount = cursor.getInt(cursor.getColumnIndexOrThrow("viewCount"));
 
-                stories.add(new Story(idstory,title,author,description,imgUrl,isCompleted,0));
+                stories.add(new Story(idstory,title,author,description,imgUrl,isCompleted,viewCount));
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
         return stories;
+    }
+
+    public List<Story> findByKeywordTitle(String keyword){
+        List<Story> list = new ArrayList<Story>();
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM stories WHERE title LIKE ? ", new String[]{"%" + keyword + "%"});
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String idstory = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+                String imgUrl = cursor.getString(cursor.getColumnIndexOrThrow("imgURL"));
+                int isCompleted = cursor.getInt(cursor.getColumnIndexOrThrow("isCompleted"));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+                int viewCount = cursor.getInt(cursor.getColumnIndexOrThrow("viewCount"));
+
+                Story story = new Story(idstory,title,author,description,imgUrl,isCompleted,viewCount);
+                list.add(story);
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
+    public List<Story> findByKeywordAuthor(String keyword){
+        List<Story> list = new ArrayList<Story>();
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM stories WHERE author LIKE ? ", new String[]{"%" + keyword + "%"});
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String idstory = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+                String imgUrl = cursor.getString(cursor.getColumnIndexOrThrow("imgURL"));
+                int isCompleted = cursor.getInt(cursor.getColumnIndexOrThrow("isCompleted"));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+                int viewCount = cursor.getInt(cursor.getColumnIndexOrThrow("viewCount"));
+
+                Story story = new Story(idstory,title,author,description,imgUrl,isCompleted,viewCount);
+                list.add(story);
+            } while (cursor.moveToNext());
+        }
+        return list;
     }
 
     @Override
