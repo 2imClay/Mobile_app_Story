@@ -25,8 +25,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.project.MainActivity;
 import com.example.project.R;
 import com.example.project.dao.ChapterDAO;
+import com.example.project.dao.CommentDAO;
 import com.example.project.dao.StoryDAO;
 import com.example.project.model.Chapter;
+import com.example.project.model.Comment;
 import com.example.project.model.Story;
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
@@ -45,6 +47,10 @@ public class Item_content_Activity extends AppCompatActivity {
     private Button btn_read;
     private boolean isFilled = false;
     private ChapterDAO daoChapter;
+    private StoryDAO daoStory;
+
+    private CommentDAO daoComment;
+    private UserPreferences userPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,12 @@ public class Item_content_Activity extends AppCompatActivity {
         Story story = (Story) intent.getSerializableExtra("Story");
 
         daoChapter =new ChapterDAO(this);
+        daoStory = new StoryDAO(this);
+        daoComment = new CommentDAO(this);
+        userPreferences = new UserPreferences(this);
+        User user = userPreferences.getUser();
+        List<Story> storyList = new ArrayList<>();
+
         List<Chapter> chapters = daoChapter.selectAllByIdStory(story.getIdstory());
       List<String> listChapterTitle = daoChapter.listTitleChapter(story.getIdstory());
         for (String title: listChapterTitle
@@ -66,8 +78,6 @@ public class Item_content_Activity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        UserPreferences userPreferences = new UserPreferences(this);
-        User user = userPreferences.getUser();
 
         ic_back = findViewById(R.id.ic_back);
         ImageView imageView = findViewById(R.id.imgStory);
@@ -126,7 +136,7 @@ public class Item_content_Activity extends AppCompatActivity {
         btn_cmt = (Button) findViewById(R.id.btn_cmt);
         listView_cmt = (ListView) findViewById(R.id.list_cmt);
 
-        arrList_cmt = new ArrayList<String>();
+        arrList_cmt = daoComment.getContent(story.getIdstory());
         adapter_cmt = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrList_cmt);
         listView_cmt.setAdapter(adapter_cmt);
 
@@ -136,25 +146,55 @@ public class Item_content_Activity extends AppCompatActivity {
                 if(user == null){
                     Toast.makeText(Item_content_Activity.this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
                 }else {
+                    String content = user.getUsername()+": "+ etxt_cmt.getText();
+                    Comment comment = new Comment(user.getUsername(),story.getIdstory(),content);
+                    daoComment.insert(comment);
                     arrList_cmt.add(user.getUsername()+": "+ etxt_cmt.getText());
                     adapter_cmt.notifyDataSetChanged();
+
+
                 }
 
             }
         });
 
         ImageView heartImageView = findViewById(R.id.heart);
+
+        if(user!=null){
+            storyList = daoStory.getFavoriteStory(user.getUsername());
+
+            for (Story str: storyList
+                 ) {
+                if(str.getIdstory().equalsIgnoreCase(story.getIdstory())){
+                    System.out.println(true);
+                    isFilled = true;
+                    heartImageView.setImageResource(R.drawable.heart_filled);
+
+                }
+            }
+        }
         heartImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isFilled = !isFilled;
-                if (isFilled) {
-                    heartImageView.setImageResource(R.drawable.heart_filled);
-                    Toast.makeText(Item_content_Activity.this, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
+                if(user == null){
+                    Toast.makeText(Item_content_Activity.this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
 
-                } else {
-                    heartImageView.setImageResource(R.drawable.heart_outline);
+                }else{
+                    isFilled = !isFilled;
+
+
+                    if (isFilled) {
+                        heartImageView.setImageResource(R.drawable.heart_filled);
+                        Toast.makeText(Item_content_Activity.this, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
+                        daoStory.insertFavorite(user.getUsername(),story.getIdstory());
+                    } else {
+                        daoStory.deleteFavorite(user.getUsername(),story.getIdstory());
+                        heartImageView.setImageResource(R.drawable.heart_outline);
+                        Toast.makeText(Item_content_Activity.this, "Đã xóa khỏi yêu thích", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
+
             }
         });
         ic_back.setOnClickListener(new View.OnClickListener() {

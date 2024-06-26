@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteStatement;
 
 import com.example.project.model.Genre;
 import com.example.project.model.Story;
+import com.example.project.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,5 +130,47 @@ public class StoryDAO implements DAO<Story>{
         return false;
     }
 
+    public List<String> getFavoriteStory_Helper(String username){
+        List<String> favories = new ArrayList<>();
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        String query = "SELECT * FROM favorite_stories WHERE username=?";
+        Cursor cursor = db.rawQuery(query, new String[]{username});
+        if (cursor.moveToFirst()) {
+            do {
+                String id = cursor.getString(cursor.getColumnIndexOrThrow("idStory"));
+
+                favories.add(id);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return favories;
+    }
+    public List<Story> getFavoriteStory(String username){
+        List<Story> stories = new ArrayList<>();
+        List<String> helper = getFavoriteStory_Helper(username);
+        for (Story story: selectAll()
+             ) {
+            if(helper.contains(story.getIdstory())){
+                stories.add(story);
+            }
+        }
+        return stories;
+    }
+    public long insertFavorite(String username, String idStory) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username",username);
+        values.put("idStory", idStory);
+
+        return db.insert("favorite_stories", null, values);
+    }
+    public long deleteFavorite(String username, String idStory){
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        String selection = "username = ? AND idStory = ?";
+        String[] selectionArgs = { username, idStory };
+        return db.delete("favorite_stories", selection, selectionArgs);
+    }
 
 }

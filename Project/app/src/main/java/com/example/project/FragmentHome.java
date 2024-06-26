@@ -119,7 +119,12 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(View v) {
                 textViews.add(favoriteStories);
-                showFragment(new FavoriteStoriesFragment());
+
+                if(isLogin){
+                    showFragment(new FavoriteStoriesFragment());
+                }else {
+                    showFragment(new NoLoginFragment());
+                }
                 changeBackgroundColor(textViews);
 
             }
