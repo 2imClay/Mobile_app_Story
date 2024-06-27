@@ -89,6 +89,7 @@ public class Story implements Serializable {
     public String toString() {
         return "Story{" +
                 "idstory='" + idstory + '\'' +
+                ", title='" + title + '\'' +
                 '}';
     }
 }
