@@ -123,8 +123,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-               // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Persion_Layout()).commit();
-
+                Intent intent = new Intent(MainActivity.this, Search_activity.class);
+                intent.putExtra("query", query);
+                startActivity(intent);
                 return true;
             }
 

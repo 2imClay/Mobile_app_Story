@@ -53,6 +53,23 @@ public class Search_activity extends AppCompatActivity {
         search_back = findViewById(R.id.search_back);
         dbHelper = new DatabaseHelper(this);
         daoStory = new StoryDAO(this);
+        String str = getIntent().getStringExtra("query");
+       if(str!=null){
+           text_search.setText(str);
+           String text = text_search.getText().toString().trim();
+           text = normalizeString(text);
+           Bundle bundle = new Bundle();
+           bundle.putString("search_query", text);
+
+           // Tạo Fragment mới và truyền dữ liệu qua Bundle
+           Search_fragment fragment = new Search_fragment();
+           fragment.setArguments(bundle);
+
+           getSupportFragmentManager().beginTransaction()
+                   .replace(R.id.fragment_contain_search, fragment)
+                   .commit();
+       }
+
         text_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -64,26 +81,13 @@ public class Search_activity extends AppCompatActivity {
                     if(text.isEmpty()){
                         Toast.makeText(Search_activity.this, "Bạn chưa nhập dữ liệu", Toast.LENGTH_SHORT).show();
                     } else {
-                        List<Story> storyList = daoStory.selectStoryByWord(text);
-
-                        List<String> str = daoStory.selectAllTitle();
-
                         Bundle bundle = new Bundle();
                         bundle.putString("search_query", text);
 
                         // Tạo Fragment mới và truyền dữ liệu qua Bundle
                         Search_fragment fragment = new Search_fragment();
                         fragment.setArguments(bundle);
-                        System.out.println(storyList.size());
-                        for (Story story: storyList
-                             ) {
-                            System.out.println(story.toString());
-                        }
-                        System.out.println("Default Charset=" + Charset.defaultCharset());
 
-
-
-                        // Thay thế Fragment hiện tại bằng Fragment mới với dữ liệu
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_contain_search, fragment)
                                 .commit();
@@ -110,19 +114,9 @@ public class Search_activity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("search_query", text);
 
-                    // Tạo Fragment mới và truyền dữ liệu qua Bundle
                     Search_fragment fragment = new Search_fragment();
                     fragment.setArguments(bundle);
-                    System.out.println(storyList.size());
-                    for (Story story: storyList
-                    ) {
-                        System.out.println(story.toString());
-                    }
-                    System.out.println("Default Charset=" + Charset.defaultCharset());
 
-
-
-                    // Thay thế Fragment hiện tại bằng Fragment mới với dữ liệu
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_contain_search, fragment)
                             .commit();
