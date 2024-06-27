@@ -15,8 +15,6 @@
             android:columnOrderPreserved="false"
             android:layout_marginTop="10dp"
             >
-
-
         </GridLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,7 +42,6 @@
                     android:id="@+id/profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tên người dùng"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:gravity="center_vertical"
@@ -52,7 +51,6 @@
                     android:id="@+id/profile_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="email@example.com"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     android:layout_marginTop="4dp" />
@@ -67,6 +65,13 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"/>
 
+        <Button
+            android:id="@+id/choose_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn ảnh từ bộ nhớ"
+            android:layout_marginTop="16dp"
+            android:padding="12dp" />
 
         <Button
             android:id="@+id/change_password_button"
@@ -75,6 +80,8 @@
             android:text="Đổi mật khẩu"
             android:textColor="@android:color/white"
             android:padding="12dp" />
+
+
     </LinearLayout>
 
 
