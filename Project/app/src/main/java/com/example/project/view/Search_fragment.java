@@ -1,12 +1,30 @@
-package com.example.project;
+package com.example.project.view;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.project.R;
+import com.example.project.dao.DatabaseHelper;
+import com.example.project.dao.StoryDAO;
+import com.example.project.model.Story;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +41,8 @@ public class Search_fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private StoryDAO daoStory;
+    private DatabaseHelper dbHelper;
 
     public Search_fragment() {
         // Required empty public constructor
@@ -58,7 +78,61 @@ public class Search_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.search_fragment, container, false);
+        View view = inflater.inflate(R.layout.search_fragment, container, false);
+
+        dbHelper = new DatabaseHelper(getContext());
+        daoStory = new StoryDAO(getContext());
+        Bundle args = getArguments();
+        if (args != null) {
+            String searchQuery = args.getString("search_query", "");
+            List<Story> storyList = daoStory.searchStoriesByTitle(searchQuery);
+            GridLayout gridLayout = view.findViewById(R.id.storySearchLayout);
+            for (Story story : storyList) {
+                LinearLayout linearLayout = new LinearLayout(getContext());
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0, 8, 0, 12);
+                linearLayout.setLayoutParams(layoutParams);
+                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                ImageView imageView = new ImageView(getContext());
+                LinearLayout.LayoutParams imageLayoutParams = new LinearLayout.LayoutParams(180, 220);
+
+                imageLayoutParams.setMargins(8, 0, 8, 0);
+                imageView.setLayoutParams(imageLayoutParams);
+
+                int resId = getResources().getIdentifier(story.getImageurl(), "drawable", getContext().getPackageName());
+
+                if (resId == 0) {
+                    Log.e(TAG, "Không tìm thấy tài nguyên hình ảnh: " + story.getImageurl());
+                    continue;
+                }
+
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
+                imageView.setImageBitmap(bitmap);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+
+                TextView textView = new TextView(getContext());
+                textView.setText(story.getTitle());
+                textView.setTextSize(20);
+                linearLayout.addView(imageView);
+                linearLayout.addView(textView);
+
+                linearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, Item_content_Activity.class);
+                        intent.putExtra("Story", story);
+                        context.startActivity(intent);
+                    }
+                });
+
+                gridLayout.addView(linearLayout);
+            }
+
+        }
+        return view;
     }
 }
