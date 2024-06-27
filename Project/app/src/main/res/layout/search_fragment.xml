@@ -8,7 +8,7 @@
         android:layout_height="match_parent">
 
         <GridLayout
-            android:id="@+id/storyLayout"
+            android:id="@+id/storySearchLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="1"

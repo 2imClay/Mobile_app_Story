@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -79,7 +78,7 @@ public class Item_content_Activity extends AppCompatActivity {
             return insets;
         });
 
-        ic_back = findViewById(R.id.ic_back);
+        ic_back = findViewById(R.id.search_back);
         ImageView imageView = findViewById(R.id.imgStory);
         LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(
                 200,
