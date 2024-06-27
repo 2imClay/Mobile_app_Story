@@ -22,6 +22,9 @@ import com.example.project.model.UserPreferences;
 import com.example.project.view.NoLoginFragment;
 import com.example.project.view.PersonLayout;
 import com.google.android.material.navigation.NavigationView;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -102,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
 
             }
+        }else if(id == R.id.nav_search){
+            Intent intent = new Intent(MainActivity.this, Search_activity.class);
+            startActivity(intent);
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -110,7 +116,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu,menu);
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+               // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Persion_Layout()).commit();
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // You can perform search here as the user types
+                return true;
+            }
+        });
         return true;
     }
 

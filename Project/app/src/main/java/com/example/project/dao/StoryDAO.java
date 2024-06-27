@@ -11,6 +11,7 @@ import com.example.project.model.Genre;
 import com.example.project.model.Story;
 import com.example.project.model.User;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,15 @@ public class StoryDAO implements DAO<Story>{
                 String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
                 int viewCount = cursor.getInt(cursor.getColumnIndexOrThrow("viewCount"));
 
-                stories.add(new Story(idstory,title,author,description,imgUrl,isCompleted,viewCount));
+                try {
+                    title = new String(title.getBytes("UTF-8"), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    System.out.println("Không thể chuyển đổi tiêu đề sang UTF-8: " + e.getMessage());
+
+                }
+
+                stories.add(new Story(idstory,title,author,description,imgUrl,isCompleted,0));
+
             } while (cursor.moveToNext());
         }
 
@@ -181,17 +190,120 @@ public class StoryDAO implements DAO<Story>{
     }
     public long insertFavorite(String username, String idStory) {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("username",username);
-        values.put("idStory", idStory);
 
-        return db.insert("favorite_stories", null, values);
+        db.beginTransaction();
+        long rowId = -1; // Khởi tạo giá trị mặc định
+
+
+        try {
+            ContentValues values = new ContentValues();
+            values.put("username", username);
+            values.put("idStory", idStory);
+
+            rowId = db.insert("favorite_stories", null, values);
+            db.setTransactionSuccessful(); // Đánh dấu transaction thành công
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction(); // Kết thúc transaction (commit nếu đã setTransactionSuccessful(), rollback nếu không)
+        }
+
+        return rowId; // Trả về ID của bản ghi đã được chèn
     }
     public long deleteFavorite(String username, String idStory){
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         String selection = "username = ? AND idStory = ?";
         String[] selectionArgs = { username, idStory };
         return db.delete("favorite_stories", selection, selectionArgs);
+    }
+    public List<Story> searchStoriesByTitle(String keyword) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        List<Story> stories = new ArrayList<>();
+
+        //String query = "SELECT * FROM stories WHERE title LIKE ?";
+        String query = "SELECT * FROM stories WHERE title LIKE '%" + keyword + "%'";
+
+        //String[] selectionArgs = { "%" + keyword + "%" };
+
+        Cursor cursor = db.rawQuery(query, null);
+
+
+        if (cursor.moveToFirst()) {
+            do {
+                String idstory = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+                String imgUrl = cursor.getString(cursor.getColumnIndexOrThrow("imgURL"));
+                int isCompleted = cursor.getInt(cursor.getColumnIndexOrThrow("isCompleted"));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+
+                stories.add(new Story(idstory,title,author,description,imgUrl,isCompleted,0));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return stories;
+    }
+    public List<String> selectAllTitle() {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        List<String> stories = new ArrayList<>();
+
+        //String query = "SELECT * FROM stories WHERE title LIKE ?";
+        String query = "SELECT title FROM stories ";
+
+
+        Cursor cursor = db.rawQuery(query, null);
+
+
+        if (cursor.moveToFirst()) {
+            do {
+                String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+
+                stories.add(title);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return stories;
+    }
+    public List<Story> selectStoryByWord(String word) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        List<Story> stories = new ArrayList<>();
+
+        // Sử dụng parameterized query với LIKE
+        String query = "SELECT * FROM stories WHERE title LIKE ?";
+
+        // Tạo mảng selectionArgs chứa giá trị được thêm vào cho LIKE
+        String[] selectionArgs = { "%" + word + "%" };
+
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery(query, selectionArgs);
+
+            // Duyệt qua kết quả từ cursor
+            while (cursor != null && cursor.moveToNext()) {
+                String idstory = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+                String imgUrl = cursor.getString(cursor.getColumnIndexOrThrow("imgURL"));
+                int isCompleted = cursor.getInt(cursor.getColumnIndexOrThrow("isCompleted"));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+
+                stories.add(new Story(idstory, title, author, description, imgUrl, isCompleted, 0));
+            }
+        } catch (Exception e) {
+            // Xử lý ngoại lệ nếu có
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        // Đóng kết nối database
+        db.close();
+
+        return stories;
     }
 
     public long insertHistory(String username, String idStory){
