@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
+import com.example.project.model.Chapter;
 import com.example.project.model.Genre;
 import com.example.project.model.Story;
 import com.example.project.model.User;
@@ -89,6 +90,27 @@ public class StoryDAO implements DAO<Story>{
         return list;
     }
 
+    public List<Story> searchByKeyword(String keyword){
+        List<Story> list = new ArrayList<Story>();
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM stories WHERE author LIKE ? OR title LIKE ? ", new String[]{"%" + keyword + "%", "%" + keyword + "%"});
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String idstory = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+                String imgUrl = cursor.getString(cursor.getColumnIndexOrThrow("imgURL"));
+                int isCompleted = cursor.getInt(cursor.getColumnIndexOrThrow("isCompleted"));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+                int viewCount = cursor.getInt(cursor.getColumnIndexOrThrow("viewCount"));
+
+                Story story = new Story(idstory,title,author,description,imgUrl,isCompleted,viewCount);
+                list.add(story);
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
     @Override
     public long insert(Story story) {
 //        SQLiteDatabase db = databaseHelper.getWritableDatabase();
@@ -138,7 +160,6 @@ public class StoryDAO implements DAO<Story>{
         if (cursor.moveToFirst()) {
             do {
                 String id = cursor.getString(cursor.getColumnIndexOrThrow("idStory"));
-
                 favories.add(id);
             } while (cursor.moveToNext());
         }
@@ -159,7 +180,7 @@ public class StoryDAO implements DAO<Story>{
         return stories;
     }
     public long insertFavorite(String username, String idStory) {
-        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("username",username);
         values.put("idStory", idStory);
@@ -173,4 +194,40 @@ public class StoryDAO implements DAO<Story>{
         return db.delete("favorite_stories", selection, selectionArgs);
     }
 
+    public long insertHistory(String username, String idStory){
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+    ContentValues values = new ContentValues();
+    values.put("username", username);
+    values.put("idStory", idStory);
+
+    return db.insert("history_stories", null, values);
+    }
+
+    public List<String> getHistoryStory_Helper(String username){
+        List<String> history = new ArrayList<>();
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        String query = "SELECT * FROM history_stories WHERE username=?";
+        Cursor cursor = db.rawQuery(query, new String[]{username});
+        if (cursor.moveToFirst()) {
+            do {
+                String idStory = cursor.getString(cursor.getColumnIndexOrThrow("idStory"));
+                history.add(idStory);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return history;
+    }
+    public List<Story> getHistoryStory(String username){
+        List<Story> stories = new ArrayList<>();
+        List<String> helper = getHistoryStory_Helper(username);
+        for (Story story: selectAll()
+        ) {
+            if(helper.contains(story.getIdstory())){
+                stories.add(story);
+            }
+        }
+        return stories;
+    }
 }

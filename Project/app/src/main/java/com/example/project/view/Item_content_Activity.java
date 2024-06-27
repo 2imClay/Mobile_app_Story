@@ -182,7 +182,6 @@ public class Item_content_Activity extends AppCompatActivity {
                 }else{
                     isFilled = !isFilled;
 
-
                     if (isFilled) {
                         heartImageView.setImageResource(R.drawable.heart_filled);
                         Toast.makeText(Item_content_Activity.this, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();

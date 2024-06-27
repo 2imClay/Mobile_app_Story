@@ -21,21 +21,30 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.project.R;
 import com.example.project.dao.DatabaseHelper;
 import com.example.project.dao.StoryDAO;
+import com.example.project.dao.UserDAO;
 import com.example.project.model.Story;
+import com.example.project.model.User;
+import com.example.project.model.UserPreferences;
 
 import java.util.List;
 
 public class PopularStoriesFragment extends Fragment {
     private DatabaseHelper dbHelper;
     private StoryDAO daoStory;
+    private UserDAO daoUser;
+    private UserPreferences userPreferences;
+    private  User user;
     private static final String TAG = "PopularStoriesFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        userPreferences = new UserPreferences(getContext());
+        user = userPreferences.getUser();
+        View view = inflater.inflate(R.layout.popular_stories_layout, container, false);
         dbHelper = new DatabaseHelper(getContext());
         daoStory = new StoryDAO(getContext());
-        View view = inflater.inflate(R.layout.popular_stories_layout, container, false);
         displayBooks(view);
+
         return view;
     }
 
@@ -64,7 +73,7 @@ public class PopularStoriesFragment extends Fragment {
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
             textView.setLayoutParams(textViewParams);
-            textView.setText("Truyện " + story.getTitle());
+            textView.setText(story.getTitle());
             textView.setGravity(Gravity.CENTER);
             textView.setTextColor(getResources().getColor(R.color.black));
 
@@ -101,6 +110,8 @@ public class PopularStoriesFragment extends Fragment {
                     Intent intent = new Intent(context, Item_content_Activity.class);
                     intent.putExtra("Story", story);
                     context.startActivity(intent);
+                    System.out.println("đã chọn" + story.getIdstory() + " - " + user.getUsername());
+                    daoStory.insertHistory(user.getUsername(), story.getIdstory());
                 }
             });
 
