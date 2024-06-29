@@ -19,12 +19,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
+import com.example.project.view.ListGenresFragment;
 import com.example.project.view.NoLoginFragment;
 import com.example.project.view.PersonLayout;
 import com.google.android.material.navigation.NavigationView;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -108,6 +107,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else if(id == R.id.nav_search){
             Intent intent = new Intent(MainActivity.this, Search_activity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_genres) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListGenresFragment()).commit();
+
+            getSupportActionBar().setTitle("Thể loại");
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

@@ -78,7 +78,7 @@ public class HistoryStoriesFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Context context = v.getContext();
-                    Intent intent = new Intent(context, Item_content_Activity.class);
+                    Intent intent = new Intent(context, ItemContentActivity.class);
                     intent.putExtra("Story", story);
                     context.startActivity(intent);
                 }

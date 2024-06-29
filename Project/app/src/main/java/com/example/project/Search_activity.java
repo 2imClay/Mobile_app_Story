@@ -20,7 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.project.dao.DatabaseHelper;
 import com.example.project.dao.StoryDAO;
 import com.example.project.model.Story;
-import com.example.project.view.Persion_Layout;
+import com.example.project.view.PersonLayout;
 import com.example.project.view.Search_fragment;
 
 import java.io.UnsupportedEncodingException;

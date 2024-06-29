@@ -17,6 +17,11 @@
         <item
             android:id="@+id/nav_support"
             android:title="Hỗ trợ"></item>
+        <item
+            android:id="@+id/nav_genres"
+            android:title="Thể loại">
+
+        </item>
     </group>
 
     <item android:title="">
