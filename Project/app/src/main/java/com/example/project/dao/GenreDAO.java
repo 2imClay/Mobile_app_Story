@@ -81,6 +81,21 @@ public class GenreDAO implements DAO<Genre>{
         return null;
     }
 
+    public List<String> selectIdStoryById(String idGenre){
+        List<String> result = new ArrayList<>();
+        SQLiteDatabase db  = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM genres inner join story_genres WHERE genres.idGenre = story_genres.idGenre", null);
+        if (cursor.moveToFirst()) {
+            do {
+                String idStory = cursor.getString(cursor.getColumnIndexOrThrow("idStory"));
+                result.add(idStory);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return result;
+    }
     public static void main(String[] args) {
 
 //        List<Genre> list = dao.selectAll();

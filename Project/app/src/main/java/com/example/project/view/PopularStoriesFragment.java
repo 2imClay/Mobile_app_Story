@@ -110,8 +110,10 @@ public class PopularStoriesFragment extends Fragment {
                     Intent intent = new Intent(context, ItemContentActivity.class);
                     intent.putExtra("Story", story);
                     context.startActivity(intent);
-                    System.out.println("đã chọn" + story.getIdstory() + " - " + user.getUsername());
-                    daoStory.insertHistory(user.getUsername(), story.getIdstory());
+                    if(user != null){
+                        System.out.println("đã chọn" + story.getIdstory() + " - " + user.getUsername());
+                        daoStory.insertHistory(user.getUsername(), story.getIdstory());
+                    }
                 }
             });
 
