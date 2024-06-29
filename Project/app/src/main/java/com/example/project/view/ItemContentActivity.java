@@ -117,7 +117,7 @@ public class ItemContentActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String chapterTitle = listChapterTitle.get(position);
-                Intent intent = new Intent(ItemContentActivity.this, Reading_Activity.class);
+                Intent intent = new Intent(ItemContentActivity.this, ReadingActivity.class);
                 for (Chapter chapter: chapters
                      ) {
                     if(chapter.getTitle().equalsIgnoreCase(chapterTitle)){
@@ -206,7 +206,7 @@ public class ItemContentActivity extends AppCompatActivity {
         btn_read.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent readIntent = new Intent(ItemContentActivity.this, Reading_Activity.class);
+                Intent readIntent = new Intent(ItemContentActivity.this, ReadingActivity.class);
                 readIntent.putExtra("Story", story);
                 readIntent.putExtra("Chapter", chapters.get(0));
                 startActivity(readIntent);

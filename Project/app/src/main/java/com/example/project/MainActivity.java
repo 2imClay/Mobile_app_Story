@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         }else if(id == R.id.nav_search){
-            Intent intent = new Intent(MainActivity.this, Search_activity.class);
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_genres) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListGenresFragment()).commit();
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                Intent intent = new Intent(MainActivity.this, Search_activity.class);
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 intent.putExtra("query", query);
                 startActivity(intent);
                 return true;
