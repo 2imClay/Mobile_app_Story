@@ -35,7 +35,7 @@ import com.example.project.model.UserPreferences;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Item_content_Activity extends AppCompatActivity {
+public class ItemContentActivity extends AppCompatActivity {
     EditText etxt_cmt;
     Button btn_cmt;
     ListView listView_cmt;
@@ -117,7 +117,7 @@ public class Item_content_Activity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String chapterTitle = listChapterTitle.get(position);
-                Intent intent = new Intent(Item_content_Activity.this, Reading_Activity.class);
+                Intent intent = new Intent(ItemContentActivity.this, Reading_Activity.class);
                 for (Chapter chapter: chapters
                      ) {
                     if(chapter.getTitle().equalsIgnoreCase(chapterTitle)){
@@ -143,7 +143,7 @@ public class Item_content_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(user == null){
-                    Toast.makeText(Item_content_Activity.this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ItemContentActivity.this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
                 }else {
                     String content = user.getUsername()+": "+ etxt_cmt.getText();
                     Comment comment = new Comment(user.getUsername(),story.getIdstory(),content);
@@ -176,19 +176,19 @@ public class Item_content_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(user == null){
-                    Toast.makeText(Item_content_Activity.this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ItemContentActivity.this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
 
                 }else{
                     isFilled = !isFilled;
 
                     if (isFilled) {
                         heartImageView.setImageResource(R.drawable.heart_filled);
-                        Toast.makeText(Item_content_Activity.this, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ItemContentActivity.this, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
                         daoStory.insertFavorite(user.getUsername(),story.getIdstory());
                     } else {
                         daoStory.deleteFavorite(user.getUsername(),story.getIdstory());
                         heartImageView.setImageResource(R.drawable.heart_outline);
-                        Toast.makeText(Item_content_Activity.this, "Đã xóa khỏi yêu thích", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ItemContentActivity.this, "Đã xóa khỏi yêu thích", Toast.LENGTH_SHORT).show();
 
                     }
                 }
@@ -198,7 +198,7 @@ public class Item_content_Activity extends AppCompatActivity {
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Item_content_Activity.this, MainActivity.class);
+                Intent intent = new Intent(ItemContentActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -206,7 +206,7 @@ public class Item_content_Activity extends AppCompatActivity {
         btn_read.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent readIntent = new Intent(Item_content_Activity.this, Reading_Activity.class);
+                Intent readIntent = new Intent(ItemContentActivity.this, Reading_Activity.class);
                 readIntent.putExtra("Story", story);
                 readIntent.putExtra("Chapter", chapters.get(0));
                 startActivity(readIntent);

@@ -22,7 +22,7 @@
             android:name=".view.PersonActivity"
             android:exported="false" />
         <activity
-            android:name=".view.Item_content_Activity"
+            android:name=".view.ItemContentActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
