@@ -17,6 +17,7 @@ import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
 import com.example.project.view.FavoriteStoriesFragment;
 import com.example.project.view.HistoryStoriesFragment;
+import com.example.project.view.ListGenresFragment;
 import com.example.project.view.NewStoriesFragment;
 import com.example.project.view.NoLoginFragment;
 import com.example.project.view.PopularStoriesFragment;
@@ -83,7 +84,7 @@ public class FragmentHome extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         TextView popularStories = view.findViewById(R.id.popularStories);
-        TextView newStories = view.findViewById(R.id.newStories);
+        TextView genreStories = view.findViewById(R.id.genreStories);
         TextView favoriteStories = view.findViewById(R.id.favoriteStories);
         TextView historyStoriesRead = view.findViewById(R.id.historyStoriesRead);
 
@@ -106,11 +107,11 @@ public class FragmentHome extends Fragment {
             }
         });
 
-        newStories.setOnClickListener(new View.OnClickListener() {
+        genreStories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textViews.add(newStories);
-                showFragment(new NewStoriesFragment());
+                textViews.add(genreStories);
+                showFragment(new ListGenresFragment());
                 changeBackgroundColor(textViews);
 
             }

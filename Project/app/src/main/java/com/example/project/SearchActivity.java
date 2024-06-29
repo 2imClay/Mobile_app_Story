@@ -1,7 +1,5 @@
 package com.example.project;
 
-import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,16 +18,13 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.project.dao.DatabaseHelper;
 import com.example.project.dao.StoryDAO;
 import com.example.project.model.Story;
-import com.example.project.view.PersonLayout;
-import com.example.project.view.Search_fragment;
+import com.example.project.view.Searchfragment;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Locale;
 
-public class Search_activity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private EditText text_search;
     private ImageButton ic_search,search_back;
@@ -62,7 +57,7 @@ public class Search_activity extends AppCompatActivity {
            bundle.putString("search_query", text);
 
            // Tạo Fragment mới và truyền dữ liệu qua Bundle
-           Search_fragment fragment = new Search_fragment();
+           Searchfragment fragment = new Searchfragment();
            fragment.setArguments(bundle);
 
            getSupportFragmentManager().beginTransaction()
@@ -79,13 +74,12 @@ public class Search_activity extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_DONE ||
                         (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
                     if(text.isEmpty()){
-                        Toast.makeText(Search_activity.this, "Bạn chưa nhập dữ liệu", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchActivity.this, "Bạn chưa nhập dữ liệu", Toast.LENGTH_SHORT).show();
                     } else {
                         Bundle bundle = new Bundle();
                         bundle.putString("search_query", text);
 
-                        // Tạo Fragment mới và truyền dữ liệu qua Bundle
-                        Search_fragment fragment = new Search_fragment();
+                        Searchfragment fragment = new Searchfragment();
                         fragment.setArguments(bundle);
 
                         getSupportFragmentManager().beginTransaction()
@@ -105,7 +99,7 @@ public class Search_activity extends AppCompatActivity {
                 String text = text_search.getText().toString().trim();
                 text = normalizeString(text);
                 if(text.isEmpty()){
-                    Toast.makeText(Search_activity.this, "Bạn chưa nhập dữ liệu", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchActivity.this, "Bạn chưa nhập dữ liệu", Toast.LENGTH_SHORT).show();
                 } else {
                     List<Story> storyList = daoStory.selectStoryByWord(text);
 
@@ -114,7 +108,7 @@ public class Search_activity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("search_query", text);
 
-                    Search_fragment fragment = new Search_fragment();
+                    Searchfragment fragment = new Searchfragment();
                     fragment.setArguments(bundle);
 
                     getSupportFragmentManager().beginTransaction()
