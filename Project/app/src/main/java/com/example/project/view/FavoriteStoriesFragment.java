@@ -25,24 +25,27 @@ import com.example.project.dao.UserDAO;
 import com.example.project.model.Story;
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
+import com.example.project.service.StoryService;
+import com.example.project.service.UserService;
 
 import java.util.List;
 
 public class FavoriteStoriesFragment extends Fragment {
-    private UserDAO userDAO;
-    private DatabaseHelper dbHelper;
     private UserPreferences userPreferences;
     private StoryDAO daoStory;
+
+    private StoryService service;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.favorite_stories_layout, container, false);
         userPreferences = new UserPreferences(getContext());
         User user = userPreferences.getUser();
-        dbHelper = new DatabaseHelper(getContext());
-        daoStory = new StoryDAO(getContext());
+        service = new StoryService(getContext());
 
-        List<Story> storyList = daoStory.getFavoriteStory(user.getUsername());
+        List<Story> storyList = service.getFavoriteStories(user.getUsername());
         GridLayout gridLayout = view.findViewById(R.id.storyLayout);
         for (Story story : storyList) {
             LinearLayout linearLayout = new LinearLayout(getContext());

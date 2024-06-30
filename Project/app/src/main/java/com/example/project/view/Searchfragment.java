@@ -23,6 +23,7 @@ import com.example.project.R;
 import com.example.project.dao.DatabaseHelper;
 import com.example.project.dao.StoryDAO;
 import com.example.project.model.Story;
+import com.example.project.service.StoryService;
 
 import java.util.List;
 
@@ -41,8 +42,9 @@ public class Searchfragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private StoryDAO daoStory;
-    private DatabaseHelper dbHelper;
+
+    private StoryService storyService;
+
 
     public Searchfragment() {
         // Required empty public constructor
@@ -79,13 +81,11 @@ public class Searchfragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.search_fragment, container, false);
-
-        dbHelper = new DatabaseHelper(getContext());
-        daoStory = new StoryDAO(getContext());
+        storyService = new StoryService(getContext());
         Bundle args = getArguments();
         if (args != null) {
             String searchQuery = args.getString("search_query", "");
-            List<Story> storyList = daoStory.searchStoriesByTitle(searchQuery);
+            List<Story> storyList = storyService.searchStoriesByTitle(searchQuery);
             GridLayout gridLayout = view.findViewById(R.id.storySearchLayout);
             for (Story story : storyList) {
                 LinearLayout linearLayout = new LinearLayout(getContext());

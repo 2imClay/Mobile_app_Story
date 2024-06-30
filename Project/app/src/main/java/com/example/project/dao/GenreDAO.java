@@ -38,26 +38,9 @@ public class GenreDAO implements DAO<Genre>{
 
     @Override
     public long insert(Genre genre) {
-//        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-//        long newRowId= -1;
-//        try {
-//            String sql = "INSERT INTO genres(idGenre,name) VALUES(?,?)";
-//            SQLiteStatement stmt = db.compileStatement(sql);
-//            stmt.bindString(1,genre.getIdgenre());
-//            stmt.bindString(2,genre.getName());
-//            newRowId = stmt.executeInsert();
-//        }catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            db.close();
-//        }
-//        return newRowId > 0;
-        SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        ContentValues values = new ContentValues();
-//        values.put("username", user.getUsername());
-//        values.put("password", user.getPassword());
-//        values.put("email", user.getEmail());
 
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        ContentValues values = new ContentValues();;
         return db.insert("genres", null, values);
     }
 
@@ -95,12 +78,5 @@ public class GenreDAO implements DAO<Genre>{
         cursor.close();
         db.close();
         return result;
-    }
-    public static void main(String[] args) {
-
-//        List<Genre> list = dao.selectAll();
-//        for (Genre genre : list){
-//            System.out.println(genre.toString());
-//        }
     }
 }

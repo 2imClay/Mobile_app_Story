@@ -26,6 +26,8 @@ import com.example.project.dao.GenreDAO;
 import com.example.project.dao.StoryDAO;
 import com.example.project.model.Genre;
 import com.example.project.model.Story;
+import com.example.project.service.GenreService;
+import com.example.project.service.StoryService;
 import com.example.project.view.ItemContentActivity;
 
 import java.util.List;
@@ -34,8 +36,12 @@ public class GenreDetail extends AppCompatActivity {
 
     public TextView textViewGenre;
 
-    public GenreDAO genreDAO;
-    private StoryDAO storyDAO;
+
+
+    private GenreService genreService;
+
+    private StoryService storyService;
+
     private ImageButton imgBtn_back;
 
     @Override
@@ -51,15 +57,15 @@ public class GenreDetail extends AppCompatActivity {
 
         textViewGenre = findViewById(R.id.textViewGenre);
         imgBtn_back = findViewById(R.id.imgBtn_back);
-        genreDAO = new GenreDAO(this);
-        storyDAO = new StoryDAO(this);
+        storyService = new StoryService(this);
+        genreService = new GenreService(this);
 
         Intent intent = getIntent();
         Genre genre = (Genre) intent.getSerializableExtra("Genre");
 
-        List<String> strGenreList = genreDAO.selectIdStoryById(genre.getIdgenre());
+        List<String> strGenreList = genreService.getIdStoryById(genre.getIdgenre());
         System.out.println(strGenreList.toArray());
-        List<Story> stories = storyDAO.getStoryById(strGenreList);
+        List<Story> stories = storyService.getStoryById(strGenreList);
 
         textViewGenre.setText(genre.getName());
 

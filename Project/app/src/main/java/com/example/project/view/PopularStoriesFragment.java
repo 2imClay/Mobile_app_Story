@@ -21,17 +21,16 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.project.R;
 import com.example.project.dao.DatabaseHelper;
 import com.example.project.dao.StoryDAO;
-import com.example.project.dao.UserDAO;
 import com.example.project.model.Story;
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
+import com.example.project.service.StoryService;
 
 import java.util.List;
 
 public class PopularStoriesFragment extends Fragment {
     private DatabaseHelper dbHelper;
-    private StoryDAO daoStory;
-    private UserDAO daoUser;
+    private StoryService service;
     private UserPreferences userPreferences;
     private  User user;
     private static final String TAG = "PopularStoriesFragment";
@@ -42,7 +41,7 @@ public class PopularStoriesFragment extends Fragment {
         user = userPreferences.getUser();
         View view = inflater.inflate(R.layout.popular_stories_layout, container, false);
         dbHelper = new DatabaseHelper(getContext());
-        daoStory = new StoryDAO(getContext());
+        service = new StoryService(getContext());
         displayBooks(view);
 
         return view;
@@ -50,7 +49,7 @@ public class PopularStoriesFragment extends Fragment {
 
     private void displayBooks(View view) {
         GridLayout gridLayout = view.findViewById(R.id.grid_layout);
-        List<Story> stories = daoStory.selectAll();
+        List<Story> stories = service.getAll();
 
         for (Story story : stories) {
             System.out.println(story.toString());
@@ -112,7 +111,7 @@ public class PopularStoriesFragment extends Fragment {
                     context.startActivity(intent);
                     if(user != null){
                         System.out.println("đã chọn" + story.getIdstory() + " - " + user.getUsername());
-                        daoStory.insertHistory(user.getUsername(), story.getIdstory());
+                        service.insertHistoryStory(user.getUsername(), story.getIdstory());
                     }
                 }
             });

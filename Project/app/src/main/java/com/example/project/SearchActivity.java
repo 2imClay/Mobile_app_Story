@@ -15,9 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.project.dao.DatabaseHelper;
-import com.example.project.dao.StoryDAO;
 import com.example.project.model.Story;
+import com.example.project.service.StoryService;
 import com.example.project.view.Searchfragment;
 
 import java.text.Normalizer;
@@ -30,8 +29,8 @@ public class SearchActivity extends AppCompatActivity {
     private ImageButton ic_search,search_back;
 
 
-    private StoryDAO daoStory;
-    private DatabaseHelper dbHelper;
+    private StoryService storyService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +45,7 @@ public class SearchActivity extends AppCompatActivity {
         text_search = findViewById(R.id.text_search);
         ic_search = findViewById(R.id.ic_search);
         search_back = findViewById(R.id.search_back);
-        dbHelper = new DatabaseHelper(this);
-        daoStory = new StoryDAO(this);
+        storyService = new StoryService(this);
         String str = getIntent().getStringExtra("query");
        if(str!=null){
            text_search.setText(str);
@@ -101,9 +99,9 @@ public class SearchActivity extends AppCompatActivity {
                 if(text.isEmpty()){
                     Toast.makeText(SearchActivity.this, "Bạn chưa nhập dữ liệu", Toast.LENGTH_SHORT).show();
                 } else {
-                    List<Story> storyList = daoStory.selectStoryByWord(text);
+                    List<Story> storyList = storyService.findStoryByKeyword(text);
 
-                    List<String> str = daoStory.selectAllTitle();
+                    List<String> str = storyService.getAllStoryByTitle();
 
                     Bundle bundle = new Bundle();
                     bundle.putString("search_query", text);

@@ -14,24 +14,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.project.GenreDetail;
 import com.example.project.R;
 import com.example.project.dao.DatabaseHelper;
 import com.example.project.dao.GenreDAO;
 import com.example.project.model.Genre;
+import com.example.project.service.GenreService;
 
 import java.util.List;
 
 public class ListGenresFragment extends Fragment {
     private DatabaseHelper databaseHelper;
-    private GenreDAO genreDAO;
+    private GenreService serviceGenre;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         databaseHelper = new DatabaseHelper(getContext());
-        genreDAO = new GenreDAO(getContext());
+        serviceGenre = new GenreService(getContext());
         View view = inflater.inflate(R.layout.list_genres, container,false);
         display(view);
 
@@ -41,7 +41,7 @@ public class ListGenresFragment extends Fragment {
 
     public void display(View view) {
         GridLayout gridLayout = view.findViewById(R.id.list_genres);
-        List<Genre> genres = genreDAO.selectAll();
+        List<Genre> genres = serviceGenre.getAll();
         int totalGenres = genres.size();
 
         for (int i = 0; i < totalGenres; i++) {
@@ -68,7 +68,7 @@ public class ListGenresFragment extends Fragment {
             textView.setText(genre.getName());
             textView.setGravity(Gravity.CENTER);
             textView.setTextColor(getResources().getColor(R.color.black));
-
+            
             genreLayout.addView(textView);
             genreLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
