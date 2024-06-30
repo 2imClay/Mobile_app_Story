@@ -75,6 +75,54 @@ public class ChapterDAO implements DAO<Chapter>{
         db.close();
         return chapterList;
     }
+    public Chapter selectNextChapter(String storyID, String currentChapterID) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM chapters WHERE idStory = ?", new String[]{storyID});
+        boolean foundCurrent = false;
+        Chapter nextChapter = null;
+        if (cursor.moveToFirst()) {
+            do {
+                String idChapter = cursor.getString(cursor.getColumnIndexOrThrow("idChapter"));
+                if (foundCurrent) {
+                    String idStory = cursor.getString(cursor.getColumnIndexOrThrow("idStory"));
+                    String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                    String content = cursor.getString(cursor.getColumnIndexOrThrow("content"));
+                    nextChapter = new Chapter(idChapter, idStory, title, content);
+                    break;
+                }
+                if (idChapter.equalsIgnoreCase(currentChapterID)) {
+                    foundCurrent = true;
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return nextChapter;
+    }
+    public Chapter selectPreviousChapter(String storyID, String currentChapterID) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM chapters WHERE idStory = ?", new String[]{storyID});
+        boolean foundCurrent = false;
+        Chapter previousChapter = null;
+        if (cursor.moveToLast()) {
+            do {
+                String idChapter = cursor.getString(cursor.getColumnIndexOrThrow("idChapter"));
+                if (foundCurrent) {
+                    String idStory = cursor.getString(cursor.getColumnIndexOrThrow("idStory"));
+                    String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                    String content = cursor.getString(cursor.getColumnIndexOrThrow("content"));
+                    previousChapter = new Chapter(idChapter, idStory, title, content);
+                    break;
+                }
+                if (idChapter.equalsIgnoreCase(currentChapterID)) {
+                    foundCurrent = true;
+                }
+            } while (cursor.moveToPrevious());
+        }
+        cursor.close();
+        db.close();
+        return previousChapter;
+    }
     @Override
     public long insert(Chapter chapter) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
@@ -99,4 +147,27 @@ public class ChapterDAO implements DAO<Chapter>{
         return false;
     }
 
+    public int checkIsBeginningOrEndingChapter(String storyID, String currentChapterID) {
+        int result = 0;
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT idChapter FROM chapters WHERE idStory = ?", new String[]{storyID});
+
+        if (cursor.moveToFirst()) {
+            String firstChapterID = cursor.getString(cursor.getColumnIndexOrThrow("idChapter"));
+            if (firstChapterID.equalsIgnoreCase(currentChapterID)) {
+                result = -1; // Chương đầu tiên
+            } else {
+                cursor.moveToLast();
+                String lastChapterID = cursor.getString(cursor.getColumnIndexOrThrow("idChapter"));
+                if (lastChapterID.equalsIgnoreCase(currentChapterID)) {
+                    result = 1; // Chương cuối cùng
+                }
+            }
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
+    }
 }

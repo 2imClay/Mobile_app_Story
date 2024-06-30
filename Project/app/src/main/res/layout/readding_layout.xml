@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/backFuncRelLayout"
-        android:layout_marginTop="50dp"
-        android:paddingHorizontal="30dp">
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="5dp">
 
         <ImageButton
             android:id="@+id/imgbtn_back"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Truyện"
             android:textStyle="bold"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:layout_toRightOf="@id/imgbtn_back"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"/>
@@ -46,11 +46,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
             android:text="Chap 1: Người anh hùng moi da den"
             android:textAlignment="center"
-            android:textSize="30sp"></TextView>
+            android:textSize="20sp"></TextView>
     </RelativeLayout>
     <!--    <RelativeLayout-->
     <!--        android:layout_width="match_parent"-->
@@ -117,29 +117,32 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp">
 
             <TextView
                 android:id="@+id/editText_ReadingMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
+                android:fontFamily="serif"
                 android:gravity="start|top"
-                android:inputType="textMultiLine"
+
+                android:scrollbars="vertical"
                 android:paddingHorizontal="30dp"
-                android:paddingVertical="20dp"
-                android:text=""
-               />
+                android:paddingVertical="20dp" />
         </ScrollView>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/navFunctRelLayoutBot"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="#8692f7"
-        android:paddingBottom="20dp"
     >
         <!--        <ImageButton-->
         <!--            android:layout_height="70dp"-->
@@ -157,12 +160,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp">
+            android:layout_centerVertical="true"
+            android:paddingVertical="5dp">
 
             <ImageButton
                 android:id="@+id/btn_previousChapterBot"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/button_round"
                 android:backgroundTint="@color/button_navigation_reading"
                 android:padding="10dp"
@@ -172,29 +179,33 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/selectorChapterBot"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="200dp"
-                android:layout_height="70dp"
+                android:layout_width="250dp"
+                android:layout_height="45dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_toRightOf="@id/btn_previousChapterBot">
 
                 <AutoCompleteTextView
                     android:id="@+id/autoCompleteTextViewBot"
                     android:layout_width="match_parent"
-                    android:layout_height="43dp"
+                    android:layout_height="match_parent"
                     android:background="@drawable/select_chapter_round"
                     android:inputType="none"
-                    android:paddingVertical="-50dp" />
+                    android:textSize="15sp"
+                    android:paddingVertical="3dp"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
                 android:id="@+id/btn_nextChaterBot"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_toRightOf="@id/selectorChapterBot"
                 android:background="@drawable/button_round"
                 android:backgroundTint="@color/button_navigation_reading"
                 android:padding="10dp"
                 android:rotation="180"
+                android:layout_marginTop="5dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/img_arrow_left" />
 
