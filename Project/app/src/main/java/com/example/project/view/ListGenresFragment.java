@@ -65,7 +65,7 @@ public class ListGenresFragment extends Fragment {
             textView.setText(genre.getName());
             textView.setGravity(Gravity.CENTER);
             textView.setTextColor(getResources().getColor(R.color.black));
-
+            
             genreLayout.addView(textView);
             gridLayout.addView(genreLayout);
         }
