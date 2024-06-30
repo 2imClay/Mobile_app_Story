@@ -1,5 +1,7 @@
 package com.example.project.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.project.GenreDetail;
 import com.example.project.R;
 import com.example.project.dao.DatabaseHelper;
 import com.example.project.dao.GenreDAO;
@@ -67,7 +70,18 @@ public class ListGenresFragment extends Fragment {
             textView.setTextColor(getResources().getColor(R.color.black));
 
             genreLayout.addView(textView);
+            genreLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, GenreDetail.class);
+                    intent.putExtra("Genre", genre);
+                    context.startActivity(intent);
+                }
+            });
             gridLayout.addView(genreLayout);
+
         }
     }
 }

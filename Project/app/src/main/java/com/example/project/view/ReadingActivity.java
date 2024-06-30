@@ -3,7 +3,6 @@ package com.example.project.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -12,9 +11,6 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.project.R;
 import com.example.project.dao.ChapterDAO;
@@ -23,7 +19,7 @@ import com.example.project.model.Story;
 
 import java.util.List;
 
-public class Reading_Activity extends AppCompatActivity {
+public class ReadingActivity extends AppCompatActivity {
 
     private TextView textView_nameStory,textView_nameChapter,editText_ReadingMain;
     private ImageButton imgbtn_back;
