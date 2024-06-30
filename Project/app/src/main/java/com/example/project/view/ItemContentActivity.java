@@ -31,6 +31,9 @@ import com.example.project.model.Comment;
 import com.example.project.model.Story;
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
+import com.example.project.service.ChapterService;
+import com.example.project.service.CommentService;
+import com.example.project.service.StoryService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,10 +48,11 @@ public class ItemContentActivity extends AppCompatActivity {
     private TextView textViewAuthor,textViewNameStory;
     private Button btn_read;
     private boolean isFilled = false;
-    private ChapterDAO daoChapter;
-    private StoryDAO daoStory;
 
-    private CommentDAO daoComment;
+
+    private ChapterService chapterService;
+    private StoryService storyService;
+    private CommentService commentService;
     private UserPreferences userPreferences;
 
     @Override
@@ -56,15 +60,16 @@ public class ItemContentActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Story story = (Story) intent.getSerializableExtra("Story");
 
-        daoChapter =new ChapterDAO(this);
-        daoStory = new StoryDAO(this);
-        daoComment = new CommentDAO(this);
+
+        storyService = new StoryService(this);
+        chapterService = new ChapterService(this);
+        commentService = new CommentService(this);
         userPreferences = new UserPreferences(this);
         User user = userPreferences.getUser();
         List<Story> storyList = new ArrayList<>();
 
-        List<Chapter> chapters = daoChapter.selectAllByIdStory(story.getIdstory());
-      List<String> listChapterTitle = daoChapter.listTitleChapter(story.getIdstory());
+        List<Chapter> chapters = chapterService.getAllByIdStory(story.getIdstory());
+      List<String> listChapterTitle = chapterService.getListTitleChapterByIdStory(story.getIdstory());
         for (String title: listChapterTitle
              ) {
             System.out.println(title);
@@ -135,7 +140,7 @@ public class ItemContentActivity extends AppCompatActivity {
         btn_cmt = (Button) findViewById(R.id.btn_cmt);
         listView_cmt = (ListView) findViewById(R.id.list_cmt);
 
-        arrList_cmt = daoComment.getContent(story.getIdstory());
+        arrList_cmt = commentService.getCommentByIdStory(story.getIdstory());
         adapter_cmt = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrList_cmt);
         listView_cmt.setAdapter(adapter_cmt);
 
@@ -147,7 +152,7 @@ public class ItemContentActivity extends AppCompatActivity {
                 }else {
                     String content = user.getUsername()+": "+ etxt_cmt.getText();
                     Comment comment = new Comment(user.getUsername(),story.getIdstory(),content);
-                    daoComment.insert(comment);
+                    commentService.insert(comment);
                     arrList_cmt.add(user.getUsername()+": "+ etxt_cmt.getText());
                     adapter_cmt.notifyDataSetChanged();
 
@@ -160,7 +165,7 @@ public class ItemContentActivity extends AppCompatActivity {
         ImageView heartImageView = findViewById(R.id.heart);
 
         if(user!=null){
-            storyList = daoStory.getFavoriteStory(user.getUsername());
+            storyList = storyService.getFavoriteStories(user.getUsername());
 
             for (Story str: storyList
                  ) {
@@ -184,9 +189,9 @@ public class ItemContentActivity extends AppCompatActivity {
                     if (isFilled) {
                         heartImageView.setImageResource(R.drawable.heart_filled);
                         Toast.makeText(ItemContentActivity.this, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
-                        daoStory.insertFavorite(user.getUsername(),story.getIdstory());
+                        storyService.insertFavoriteStory(user.getUsername(),story.getIdstory());
                     } else {
-                        daoStory.deleteFavorite(user.getUsername(),story.getIdstory());
+                        storyService.deleteFavoriteStory(user.getUsername(),story.getIdstory());
                         heartImageView.setImageResource(R.drawable.heart_outline);
                         Toast.makeText(ItemContentActivity.this, "Đã xóa khỏi yêu thích", Toast.LENGTH_SHORT).show();
 

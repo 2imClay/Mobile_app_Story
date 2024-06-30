@@ -18,16 +18,17 @@ import com.example.project.MainActivity;
 import com.example.project.R;
 import com.example.project.dao.UserDAO;
 import com.example.project.model.User;
+import com.example.project.service.UserService;
 
 public class RegisterFragment extends Fragment {
 
     private TextView textLogin;
     private EditText textUsername, textPassword, textPassAgain, textEmail;
     private Button btnRegister;
-    private UserDAO userDAO;
+    private UserService userService;
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        userDAO = new UserDAO(getContext());
+        userService = new UserService(getContext());
         View view = inflater.inflate(R.layout.register_layout, container, false);
         textLogin = view.findViewById(R.id.textLogin);
         textUsername = view.findViewById(R.id.textUsername);
@@ -55,12 +56,12 @@ public class RegisterFragment extends Fragment {
                         System.out.println(passAgain);
                     }else {
 
-                        if(userDAO.checkUser(username)){
+                        if(userService.checkUser(username)){
                             Toast.makeText(getContext(), "Tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
                         }else {
 
                             User user = new User(username, password,email);
-                            userDAO.insert(user);
+                            userService.insert(user);
                             Toast.makeText(getContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getActivity(), MainActivity.class));
 

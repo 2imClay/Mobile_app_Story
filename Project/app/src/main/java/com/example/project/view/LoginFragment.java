@@ -23,15 +23,17 @@ import com.example.project.dao.DatabaseHelper;
 import com.example.project.dao.UserDAO;
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
+import com.example.project.service.UserService;
 
 public class LoginFragment extends Fragment  {
 
     private TextView textViewRegister;
     private Button buttonLogin;
     private EditText editTextUsername, editTextPassword;
-    private UserDAO userDAO;
-    private DatabaseHelper databaseHelper;
+
     private UserPreferences userPreferences;
+
+    private UserService service;
 
 
     @Override
@@ -43,8 +45,8 @@ public class LoginFragment extends Fragment  {
 
         editTextUsername = view.findViewById(R.id.editTextUsername);
         editTextPassword = view.findViewById(R.id.editTextPassword);
-        databaseHelper = new DatabaseHelper(getContext());
-        userDAO = new UserDAO(getContext());
+        service = new UserService(getContext());
+
         userPreferences = new UserPreferences(getContext());
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,16 +62,16 @@ public class LoginFragment extends Fragment  {
                 if(username.isEmpty() || password.isEmpty() ){
                     Toast.makeText(getContext(), "Hãy nhập đầy đủ tài khoản và mặt khẩu", Toast.LENGTH_SHORT).show();
                 }else {
-                    if(userDAO.authercationUser(username,password)){
+                    if(service.authercationUser(username,password)){
                         Toast.makeText(getContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                        User user = userDAO.getUserByUsername(username);
+                        User user = service.getUserByUsername(username);
                         userPreferences.saveUser(user);
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                     }else{
                         System.out.println(username);
                         System.out.println(password);
-                        for (User user: userDAO.selectAll()
+                        for (User user: service.getAll()
                              ) {
                             System.out.println(user.toString());
                         }

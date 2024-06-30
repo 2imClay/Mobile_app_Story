@@ -17,6 +17,7 @@ import com.example.project.R;
 import com.example.project.dao.ChapterDAO;
 import com.example.project.model.Chapter;
 import com.example.project.model.Story;
+import com.example.project.service.ChapterService;
 
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class ReadingActivity extends AppCompatActivity {
 
     private List<Chapter> chapters;
 
+    private ChapterService chapterService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,12 @@ public class ReadingActivity extends AppCompatActivity {
         chapterDAO = new ChapterDAO(this);
         listChapters = chapterDAO.listTitleChapter(story.getIdstory());
         chapters = chapterDAO.selectAllByIdStory(story.getIdstory());
+        Story story = (Story) intent.getSerializableExtra("Story");
+        Chapter chapter = (Chapter) intent.getSerializableExtra("Chapter");
+
+        chapterService = new ChapterService(this);
+        List<String> listChapters = chapterService.getListTitleChapterByIdStory(story.getIdstory());
+        List<Chapter> chapters = chapterService.getAllByIdStory(story.getIdstory());
 
 
         //ánh xạ
