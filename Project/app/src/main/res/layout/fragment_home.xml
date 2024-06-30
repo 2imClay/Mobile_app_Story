@@ -18,14 +18,15 @@
             android:text="Phổ biến"
             android:gravity="center"
             android:maxHeight="20dp"/>
+
         <TextView
+            android:id="@+id/genreStories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/newStories"
-            android:text="Mới"
             android:gravity="center"
-            android:maxHeight="20dp"/>
+            android:maxHeight="20dp"
+            android:text="Danh mục" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"

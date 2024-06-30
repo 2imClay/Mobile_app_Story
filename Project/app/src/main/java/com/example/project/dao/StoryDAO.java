@@ -342,4 +342,15 @@ public class StoryDAO implements DAO<Story>{
         }
         return stories;
     }
+    public List<Story> getStoryById(List<String> strGenre){
+        List<Story> stories = new ArrayList<>();
+        for (Story story: selectAll()
+             ) {
+            if(strGenre.contains(story.getIdstory())){
+                stories.add(story);
+            }
+        }
+
+        return  stories;
+    }
 }
