@@ -18,7 +18,6 @@ import com.example.project.model.UserPreferences;
 import com.example.project.view.FavoriteStoriesFragment;
 import com.example.project.view.HistoryStoriesFragment;
 import com.example.project.view.ListGenresFragment;
-import com.example.project.view.NewStoriesFragment;
 import com.example.project.view.NoLoginFragment;
 import com.example.project.view.PopularStoriesFragment;
 

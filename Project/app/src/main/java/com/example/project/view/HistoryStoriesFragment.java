@@ -24,6 +24,7 @@ import com.example.project.dao.StoryDAO;
 import com.example.project.model.Story;
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
+import com.example.project.service.StoryService;
 
 import java.util.List;
 
@@ -31,16 +32,17 @@ public class HistoryStoriesFragment extends Fragment {
     private UserPreferences userPreferences;
 
     private StoryDAO storyDAO;
+
+    private StoryService service;
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         userPreferences = new UserPreferences(getContext());
         User user = userPreferences.getUser();
-
+        service = new StoryService(getContext());
         View view = inflater.inflate(R.layout.history_stories_read_layout, container, false);
-        // Khởi tạo và hiển thị nội dung của popular stories ở đây
-        storyDAO = new StoryDAO(getContext());
-        List<Story> storyList = storyDAO.getHistoryStory(user.getUsername());
+
+        List<Story> storyList = service.getHistoryStories(user.getUsername());
         GridLayout gridLayout = view.findViewById(R.id.storyLayout);
         for (Story story : storyList) {
             LinearLayout linearLayout = new LinearLayout(getContext());
