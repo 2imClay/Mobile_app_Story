@@ -70,6 +70,14 @@ public class UserDAO implements DAO<User>{
         }
         return false;
     }
+    public boolean changePassword(String username, String newPassword) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("password", newPassword);
+        int rows = db.update("users", values, "username" + " = ?", new String[]{username});
+        db.close();
+        return rows > 0;
+    }
     public boolean checkUser(String username) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         String query = "SELECT * FROM users WHERE username = ? " ;
@@ -85,6 +93,15 @@ public class UserDAO implements DAO<User>{
             if(user.getUsername().equalsIgnoreCase(username)) return user;
         }
         return  null;
+    }
+    public boolean checkUser(String username, String email){
+        for (User user:
+                selectAll()) {
+            if(user.getUsername().equalsIgnoreCase(username) && user.getEmail().equalsIgnoreCase(email)){
+                return true;
+            }
+        }
+        return false;
     }
 
 

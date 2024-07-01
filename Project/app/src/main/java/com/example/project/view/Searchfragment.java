@@ -23,6 +23,7 @@ import com.example.project.R;
 import com.example.project.dao.DatabaseHelper;
 import com.example.project.dao.StoryDAO;
 import com.example.project.model.Story;
+import com.example.project.service.ChapterService;
 import com.example.project.service.StoryService;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class Searchfragment extends Fragment {
 
     private StoryService storyService;
 
+    private ChapterService chapterService;
 
     public Searchfragment() {
         // Required empty public constructor
@@ -82,12 +84,16 @@ public class Searchfragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.search_fragment, container, false);
         storyService = new StoryService(getContext());
+        chapterService = new ChapterService(getContext());
+
         Bundle args = getArguments();
         if (args != null) {
             String searchQuery = args.getString("search_query", "");
             List<Story> storyList = storyService.searchStoriesByTitle(searchQuery);
             GridLayout gridLayout = view.findViewById(R.id.storySearchLayout);
             for (Story story : storyList) {
+                List<String> listChapterTitle = chapterService.getListTitleChapterByIdStory(story.getIdstory());
+
                 LinearLayout linearLayout = new LinearLayout(getContext());
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -113,11 +119,28 @@ public class Searchfragment extends Fragment {
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
-                TextView textView = new TextView(getContext());
-                textView.setText(story.getTitle());
-                textView.setTextSize(20);
+
+                LinearLayout textLayout = new LinearLayout(getContext());
+                textLayout.setOrientation(LinearLayout.VERTICAL);
+                textLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                ));
+
+                TextView textTitle = new TextView(getContext());
+                textTitle.setText(story.getTitle());
+                textTitle.setTextSize(20);
+
+                TextView textChapter= new TextView(getContext());
+
+                String chapterText = listChapterTitle.get(listChapterTitle.size()-1).substring(0,8).trim();
+                textChapter.setText("Cập nhật đến "+chapterText);
+                textChapter.setTextSize(13);
+
+                textLayout.addView(textTitle);
+                textLayout.addView(textChapter);
                 linearLayout.addView(imageView);
-                linearLayout.addView(textView);
+                linearLayout.addView(textLayout);
 
                 linearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override

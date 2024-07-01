@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.project.EmailActivity;
 import com.example.project.R;
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
@@ -42,7 +43,7 @@ public class PersonLayout extends Fragment {
     private UserPreferences userPreferences;
     private TextView profileName, profileEmail;
     private ImageView profileImageView;
-    private Button chooseImageButton;
+    private Button chooseImageButton,change_password_button;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -99,7 +100,14 @@ public class PersonLayout extends Fragment {
         profileEmail = view.findViewById(R.id.profile_email);
         profileImageView = view.findViewById(R.id.profile_image);
         chooseImageButton = view.findViewById(R.id.choose_image_button);
-
+        change_password_button = view.findViewById(R.id.change_password_button);
+        change_password_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext() , EmailActivity.class);
+                startActivity(intent);
+            }
+        });
         profileName.setText(user.getUsername());
         profileEmail.setText(user.getEmail());
 

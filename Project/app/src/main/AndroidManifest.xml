@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +16,12 @@
         android:theme="@style/Theme.Project"
         tools:targetApi="31">
         <activity
+            android:name=".ForgetPassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EmailActivity"
+            android:exported="false" />
+        <activity
             android:name=".GenreDetail"
             android:exported="false" />
         <activity
@@ -24,7 +31,7 @@
             android:name=".view.ReadingActivity"
             android:exported="false" />
         <activity
-            android:name=".view.PersonActivity"
+            android:name=".view.PersonLayout"
             android:exported="false" />
         <activity
             android:name=".view.ItemContentActivity"

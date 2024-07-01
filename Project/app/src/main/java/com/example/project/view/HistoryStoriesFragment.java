@@ -24,6 +24,7 @@ import com.example.project.dao.StoryDAO;
 import com.example.project.model.Story;
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
+import com.example.project.service.ChapterService;
 import com.example.project.service.StoryService;
 
 import java.util.List;
@@ -34,6 +35,9 @@ public class HistoryStoriesFragment extends Fragment {
     private StoryDAO storyDAO;
 
     private StoryService service;
+
+    private ChapterService chapterService;
+
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,9 +46,12 @@ public class HistoryStoriesFragment extends Fragment {
         service = new StoryService(getContext());
         View view = inflater.inflate(R.layout.history_stories_read_layout, container, false);
 
+        chapterService = new ChapterService(getContext());
+
         List<Story> storyList = service.getHistoryStories(user.getUsername());
         GridLayout gridLayout = view.findViewById(R.id.storyLayout);
         for (Story story : storyList) {
+            List<String> listChapterTitle = chapterService.getListTitleChapterByIdStory(story.getIdstory());
             LinearLayout linearLayout = new LinearLayout(getContext());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -70,11 +77,28 @@ public class HistoryStoriesFragment extends Fragment {
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
-            TextView textView = new TextView(getContext());
-            textView.setText(story.getTitle());
-            textView.setTextSize(20);
+
+            LinearLayout textLayout = new LinearLayout(getContext());
+            textLayout.setOrientation(LinearLayout.VERTICAL);
+            textLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+
+            TextView textTitle = new TextView(getContext());
+            textTitle.setText(story.getTitle());
+            textTitle.setTextSize(20);
+
+            TextView textChapter= new TextView(getContext());
+
+            String chapterText = listChapterTitle.get(listChapterTitle.size()-1).substring(0,8).trim();
+            textChapter.setText("Cập nhật đến "+chapterText);
+            textChapter.setTextSize(13);
+
+            textLayout.addView(textTitle);
+            textLayout.addView(textChapter);
             linearLayout.addView(imageView);
-            linearLayout.addView(textView);
+            linearLayout.addView(textLayout);
 
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

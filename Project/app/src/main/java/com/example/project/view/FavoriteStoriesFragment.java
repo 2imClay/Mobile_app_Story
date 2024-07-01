@@ -22,9 +22,11 @@ import com.example.project.R;
 import com.example.project.dao.DatabaseHelper;
 import com.example.project.dao.StoryDAO;
 import com.example.project.dao.UserDAO;
+import com.example.project.model.Chapter;
 import com.example.project.model.Story;
 import com.example.project.model.User;
 import com.example.project.model.UserPreferences;
+import com.example.project.service.ChapterService;
 import com.example.project.service.StoryService;
 import com.example.project.service.UserService;
 
@@ -37,6 +39,7 @@ public class FavoriteStoriesFragment extends Fragment {
     private StoryService service;
 
 
+    private ChapterService chapterService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,9 +48,12 @@ public class FavoriteStoriesFragment extends Fragment {
         User user = userPreferences.getUser();
         service = new StoryService(getContext());
 
+        chapterService = new ChapterService(getContext());
+
         List<Story> storyList = service.getFavoriteStories(user.getUsername());
         GridLayout gridLayout = view.findViewById(R.id.storyLayout);
         for (Story story : storyList) {
+            List<String> listChapterTitle = chapterService.getListTitleChapterByIdStory(story.getIdstory());
             LinearLayout linearLayout = new LinearLayout(getContext());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -55,6 +61,8 @@ public class FavoriteStoriesFragment extends Fragment {
             layoutParams.setMargins(0, 8, 0, 12);
             linearLayout.setLayoutParams(layoutParams);
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+
             ImageView imageView = new ImageView(getContext());
             LinearLayout.LayoutParams imageLayoutParams = new LinearLayout.LayoutParams(180, 220);
 
@@ -73,11 +81,28 @@ public class FavoriteStoriesFragment extends Fragment {
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
-            TextView textView = new TextView(getContext());
-            textView.setText(story.getTitle());
-            textView.setTextSize(20);
+            LinearLayout textLayout = new LinearLayout(getContext());
+            textLayout.setOrientation(LinearLayout.VERTICAL);
+            textLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+
+            TextView textTitle = new TextView(getContext());
+            textTitle.setText(story.getTitle());
+            textTitle.setTextSize(20);
+
+            TextView textChapter= new TextView(getContext());
+
+            String chapterText = listChapterTitle.get(listChapterTitle.size()-1).substring(0,8).trim();
+            textChapter.setText("Cập nhật đến "+chapterText);
+            textChapter.setTextSize(13);
+
+            textLayout.addView(textTitle);
+            textLayout.addView(textChapter);
+
             linearLayout.addView(imageView);
-            linearLayout.addView(textView);
+            linearLayout.addView(textLayout);
 
            linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

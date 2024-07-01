@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.project.ForgetPassActivity;
 import com.example.project.FragmentHome;
 import com.example.project.MainActivity;
 import com.example.project.R;
@@ -27,7 +28,7 @@ import com.example.project.service.UserService;
 
 public class LoginFragment extends Fragment  {
 
-    private TextView textViewRegister;
+    private TextView textViewRegister,textViewForgotPassword;
     private Button buttonLogin;
     private EditText editTextUsername, editTextPassword;
 
@@ -41,6 +42,7 @@ public class LoginFragment extends Fragment  {
         View view = inflater.inflate(R.layout.login_layout, container, false);
 
         textViewRegister = view.findViewById(R.id.textViewRegister);
+        textViewForgotPassword = view.findViewById(R.id.textViewForgotPassword);
         buttonLogin = view.findViewById(R.id.buttonLogin);
 
         editTextUsername = view.findViewById(R.id.editTextUsername);
@@ -52,6 +54,13 @@ public class LoginFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 showFragment(new RegisterFragment());
+            }
+        });
+        textViewForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ForgetPassActivity.class);
+                startActivity(intent);
             }
         });
         buttonLogin.setOnClickListener(new View.OnClickListener() {
